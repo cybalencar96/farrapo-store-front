@@ -39,7 +39,7 @@ export default function SignupPage() {
                     <input placeholder="email" type="email" className="tp1"  required
                         onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.email}
                      />
-                    <input placeholder="password" type="password" className="tp1" required
+                    <input placeholder="password" type="password" className="tp1" required 
                         onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.password}
                     />
                     <input placeholder="confirm password" type="password" className="tp1" required

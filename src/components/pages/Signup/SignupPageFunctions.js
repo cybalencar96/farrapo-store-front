@@ -4,6 +4,10 @@ import {
 } from '../../../utils/SweetAlert'
 import api from "../../../services/api"
 
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-_@$!#=+.%*?&])[A-Za-z\d-@_$!#=+.%*?&]{8,20}$/;
+const passwordErrMessage = 'Password must contain at least 8 characters long, 1 number, 1 upperCase and 1 special character.'
+    
+
 function changeInputs(e, inputs, setInputs) {
     const inputPlaceholder = e.target.placeholder;
     const inputValue = e.target.value;
@@ -101,8 +105,12 @@ function changeInputs(e, inputs, setInputs) {
 function signup(e, inputs, navigate) {
     e.preventDefault();
 
+    if (!passwordRegex.test(inputs.password)) {
+        return sendErrorAlert(passwordErrMessage)
+    }
+
     if (inputs.password !== inputs.confirmPass) {
-        sendErrorAlert("password and confirmation must match")
+        return sendErrorAlert("password and confirmation must match")
     }
 
     api.signup({

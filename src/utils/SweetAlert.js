@@ -5,7 +5,7 @@ function sendErrorAlert(html) {
         icon: 'error',
         title: 'Oops...',
         html: html,
-        timer: 1500,
+        timer: 2500,
       })
 }
 
@@ -14,7 +14,7 @@ function sendSuccessAlert(html) {
         title: 'Beleza!',
         html: html,
         icon: 'success',
-        timer: 1500,
+        timer: 2500,
       })
 }
 
@@ -24,7 +24,7 @@ function sendConfirmAlert(title, buttonText, confirmFunction ) {
         showCancelButton: true,
         confirmButtonText: buttonText,
         cancelButtonText: 'Cancelar',
-        timer: 1500,
+        timer: 2500,
       })
 }
 
