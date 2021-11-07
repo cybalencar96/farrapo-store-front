@@ -9,6 +9,7 @@ const TopBarContainer = styled.section`
     position: fixed;
     left: 0px;
     top: 0px;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,6 +29,7 @@ const Title = styled.span`
     font-size: 45px;
     font-weight: 600;
     text-align: center;
+    cursor: pointer;
     color: #FFFFFF;
     position: fixed;
     top: calc(( 70px - 45px) / 2 );
@@ -84,6 +86,7 @@ const CartButton = styled.button`
     font-size: 40px;
     color: #FFFFFF;
     position: relative;
+    cursor: pointer;
 `;
 
 const CartNumber = styled.div`
@@ -99,7 +102,7 @@ const CartNumber = styled.div`
     justify-content: center;
     background-color: #FFFFFF;
     color: #38C2BF;
-    font-size: 30px;
+    font-size: 20px;
     line-height: normal;
     font-weight: 700;
 `;
@@ -114,7 +117,7 @@ const ProfileButton = styled.div`
     cursor: pointer;
     & span {
         margin-left: 12px;
-        font-size: 30px;
+        font-size: 20px;
         font-weight: 700;
         line-height: 20px;
         text-align: center;
@@ -123,7 +126,7 @@ const ProfileButton = styled.div`
 
 const MenuBar = styled.div`
     width: 70%;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
     color: #FFFFFF;
     display: flex;

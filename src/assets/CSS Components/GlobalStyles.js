@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: 'Dongle', sans-serif;
+        font-family: 'Mukta', sans-serif;
         font-weight: 400;
     }
 `
