@@ -30,8 +30,21 @@ function signup(body) {
     })
 }
 
+function signin(body) {
+    const {
+        email,
+        password,
+    } = body
+
+    return axios.post('/signin', {
+        email,
+        password,
+    })
+}
+
 const api = {
     signup,
+    signin
 }
 
 export default api;

@@ -8,6 +8,7 @@ import GlobalStyles from "./assets/CSS Components/GlobalStyles";
 import TopBar from "./components/shared/TopBar/TopBar";
 import SignupPage from "./components/pages/Signup/SignupPage";
 import HomePage from "./components/pages/Home/HomePage";
+import SigninPage from "./components/pages/Signin/SigninPage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signin" element={<SigninPage />} />
         </Routes>
     </BrowserRouter>
   );

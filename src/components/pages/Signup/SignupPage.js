@@ -56,25 +56,25 @@ export default function SignupPage() {
 
                     <div>
                         <label for="birth" id="birth-label">Data de nascimento:</label><br />
-                        <input label="birth" placeholder="birth date" type="date" required
+                        <input label="birth" className='birth' placeholder="birth date" type="date" required
                             onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.birthDate}
                         />
                     </div>
 
-                    <div>
-                        <label>Gênero</label><br />
+                    <div className='genders-container'>
+                        <label >Gênero</label><br />
                         <div className="gender-radios">
-                            <input type="radio" placeholder="male" name="gender" required
+                            <input type="radio"  className='radio' placeholder="male" name="gender" required
                                 onChange={e => changeInputs(e, inputs, setInputs)} 
                             />
                             <label for="male">Masculino</label>
 
-                            <input type="radio" placeholder="female" name="gender" 
+                            <input type="radio" className='radio' placeholder="female" name="gender" 
                                 onChange={e => changeInputs(e, inputs, setInputs)}
                             />
                             <label for="female">Feminino</label>
 
-                            <input type="radio" placeholder="not_said" name="gender" 
+                            <input type="radio" className='radio' placeholder="not_said" name="gender" 
                                 onChange={e => changeInputs(e, inputs, setInputs)}
                             />
                             <label for="not_said">Prefiro nao dizer</label>
