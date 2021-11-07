@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import GlobalReset from "./assets/CSS Components/GlobalReset";
 import GlobalStyles from "./assets/CSS Components/GlobalStyles";
-import TopBar from "./components/TopBar/TopBar";
+import TopBar from "./components/shared/TopBar/TopBar";
 import SignupPage from "./components/pages/Signup/SignupPage";
 import HomePage from "./components/pages/Home/HomePage";
 
