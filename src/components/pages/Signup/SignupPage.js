@@ -6,7 +6,6 @@ import  {
 } from './SignupStyle'
 
 import {
-    changeInputs,
     signup,
 } from './SignupPageFunctions'
 import { ButtonLoading } from '../../shared/Loadings.js';
@@ -29,36 +28,53 @@ export default function SignupPage() {
         imageUrl: '',
     })
 
+    function changeInput(e, input) {
+        const inputPlaceholder = e.target.placeholder;
+        const inputValue = e.target.value;
+    
+        Object.keys(inputs).forEach(function(attribute){
+                if (attribute !== 'gender' && attribute === input) {
+                    inputs[attribute] = inputValue
+                }
+    
+                if (input === 'gender' && attribute === 'gender') {
+                    inputs[attribute] = inputPlaceholder
+                }
+    
+                setInputs({...inputs})
+        });
+    }
+
     return (
         <SignupContainer>
             <h1>Sign up</h1>
             <SignUpForm onSubmit={e => signup(e, inputs, navigate, setButtonLoading)}>
                 <div className='inputs'>
                     <input placeholder="name" className="tp1" required
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.name}
+                        onChange={e => changeInput(e, 'name')} value={inputs.name}
                     />
                     <input placeholder="email" type="email" className="tp1"  required
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.email}
+                        onChange={e => changeInput(e, 'email')} value={inputs.email}
                      />
                     <input placeholder="password" type="password" className="tp1" required 
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.password}
+                        onChange={e => changeInput(e, 'password')} value={inputs.password}
                     />
                     <input placeholder="confirm password" type="password" className="tp1" required
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.confirmPass}
+                        onChange={e => changeInput(e, 'confirmPass')} value={inputs.confirmPass}
                     />
 
                     <input placeholder="phone number" type="number" className="tp1" 
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.phone}
+                        onChange={e => changeInput(e, 'phone')} value={inputs.phone}
                     />
 
                     <input placeholder="image perfil url" type="url" className="tp1" 
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.complement}
+                        onChange={e => changeInput(e, 'imageUrl')} value={inputs.imageUrl}
                     />
 
                     <div>
                         <label for="birth" id="birth-label">Data de nascimento:</label><br />
                         <input label="birth" className='birth' placeholder="birth date" type="date" required
-                            onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.birthDate}
+                            onChange={e => changeInput(e, 'birthDate')} value={inputs.birthDate}
                         />
                     </div>
 
@@ -66,30 +82,30 @@ export default function SignupPage() {
                         <label >Gênero</label><br />
                         <div className="gender-radios">
                             <input type="radio"  className='radio' placeholder="male" name="gender" required
-                                onChange={e => changeInputs(e, inputs, setInputs)} 
+                                onChange={e => changeInput(e, 'gender')} 
                             />
                             <label for="male">Masculino</label>
 
                             <input type="radio" className='radio' placeholder="female" name="gender" 
-                                onChange={e => changeInputs(e, inputs, setInputs)}
+                                onChange={e => changeInput(e, "gender")}
                             />
                             <label for="female">Feminino</label>
 
                             <input type="radio" className='radio' placeholder="not_said" name="gender" 
-                                onChange={e => changeInputs(e, inputs, setInputs)}
+                                onChange={e => changeInput(e, "gender")}
                             />
                             <label for="not_said">Prefiro nao dizer</label>
                         </div>
                     </div>
 
                     <input placeholder="CEP" className="tp1" required
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.zipCode}
+                        onChange={e => changeInput(e, 'zipCode')} value={inputs.zipCode}
                     />
                     <input placeholder="Número" type="number" className="tp1" required
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.streetNumber}
+                        onChange={e => changeInput(e, 'streetNumber')} value={inputs.streetNumber}
                     />
                     <input placeholder="Complemento" type="text" className="tp1" 
-                        onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.complement}
+                        onChange={e => changeInput(e, 'complement')} value={inputs.complement}
                     />
                 </div>
 

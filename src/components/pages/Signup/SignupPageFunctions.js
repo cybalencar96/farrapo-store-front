@@ -7,101 +7,6 @@ import api from "../../../services/api"
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-_@$!#=+.%*?&])[A-Za-z\d-@_$!#=+.%*?&]{8,20}$/;
 const passwordErrMessage = 'Password must contain at least 8 characters long, 1 number, 1 upperCase and 1 special character.'
     
-
-function changeInputs(e, inputs, setInputs) {
-    const inputPlaceholder = e.target.placeholder;
-    const inputValue = e.target.value;
-
-    if (inputPlaceholder === 'name') {
-        setInputs({
-            ...inputs,
-            name: inputValue
-        })
-    }
-    if (inputPlaceholder === 'email') {
-        setInputs({
-            ...inputs,
-            email: inputValue
-        })
-    }
-    if (inputPlaceholder === 'password') {
-        setInputs({
-            ...inputs,
-            password: inputValue
-        })
-    }
-
-    if (inputPlaceholder === 'confirm password') {
-        setInputs({
-            ...inputs,
-            confirmPass: inputValue
-        })
-    }
-
-    if (inputPlaceholder === 'birth date') {
-        setInputs({
-            ...inputs,
-            birthDate: inputValue
-        })
-    }
-
-    if (inputPlaceholder === 'phone number') {
-        setInputs({
-            ...inputs,
-            phone: inputValue
-        })
-    }
-
-    if (inputPlaceholder === 'image perfil url') {
-        setInputs({
-            ...inputs,
-            imageUrl: inputValue
-        })
-    }
-
-    if ((inputPlaceholder + ' ' + inputValue) === 'male on') {
-        setInputs({
-            ...inputs,
-            gender: 'male'
-        })
-    }
-
-    if ((inputPlaceholder + ' ' + inputValue) === 'female on') {
-        setInputs({
-            ...inputs,
-            gender: 'female'
-        })
-    }
-
-    if ((inputPlaceholder + ' ' + inputValue) === 'not_said on') {
-        setInputs({
-            ...inputs,
-            gender: 'not_said'
-        })
-    }
-
-    if (inputPlaceholder === 'CEP') {
-        setInputs({
-            ...inputs,
-            zipCode: inputValue
-        })
-    }
-
-    if (inputPlaceholder === 'Número') {
-        setInputs({
-            ...inputs,
-            streetNumber: inputValue
-        })
-    }
-
-    if (inputPlaceholder === 'Complemento') {
-        setInputs({
-            ...inputs,
-            complement: inputValue
-        })
-    }
-}
-
 function signup(e, inputs, navigate, setButtonLoading) {
     e.preventDefault();
     setButtonLoading(true);
@@ -146,6 +51,5 @@ function signup(e, inputs, navigate, setButtonLoading) {
 }
 
 export {
-    changeInputs,
     signup,
 }
