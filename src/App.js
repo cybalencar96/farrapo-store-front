@@ -23,8 +23,8 @@ export default function App() {
         <TopBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/signin" element={<SigninPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/signin" element={<SigninPage />} />
         </Routes>
       </UserDataContext.Provider>
     </BrowserRouter>
