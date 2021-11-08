@@ -93,7 +93,7 @@ export default function SignupPage() {
                     />
                 </div>
 
-                <button type="submit">{buttonLoading ? ButtonLoading : 'Cadastrar'}</button>
+                <button type="submit">{buttonLoading ? <ButtonLoading /> : 'Cadastrar'}</button>
             </SignUpForm>
             
         </SignupContainer>
