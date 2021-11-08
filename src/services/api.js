@@ -10,9 +10,14 @@ function signin(body) {
     return axios.post('/signin', body)
 }
 
+function getHomepageItens() {
+    return axios.get('/items/homepage');
+}
+
 const api = {
     signup,
-    signin
+    signin,
+    getHomepageItens,
 }
 
 export default api;

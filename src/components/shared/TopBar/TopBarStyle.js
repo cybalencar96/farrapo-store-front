@@ -9,6 +9,7 @@ const TopBarContainer = styled.section`
     position: fixed;
     left: 0px;
     top: 0px;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,6 +21,11 @@ const MainBar = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    @media(max-width: 950px) {
+        padding-top: 60px;
+
+    }
 `;
 
 const Title = styled.span`
@@ -28,10 +34,30 @@ const Title = styled.span`
     font-size: 45px;
     font-weight: 600;
     text-align: center;
+    cursor: pointer;
     color: #FFFFFF;
     position: fixed;
     top: calc(( 70px - 45px) / 2 );
-    left: calc( (100vw - 400px) / 2 );        
+    left: calc( (100vw - 400px) / 2 );
+
+    @media(max-width: 950px) {
+    font-size: 35px;
+    top: calc(( 45px - 35px) / 2 );
+    left: calc( (100vw - 400px) / 2 );
+
+    }   
+`;
+
+const MenuButton = styled.span`
+    display: none;
+    font-size: 35px;
+    cursor: pointer;
+    color: #FFFFFF;
+    margin-top: 10px;
+
+    @media(max-width: 950px) {
+    display: block;
+    }   
 `;
 
 const SearchBar = styled.div`
@@ -73,6 +99,10 @@ const Buttons = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media(max-width: 600px) {
+        display: none;
+    } 
 `;
 
 const CartButton = styled.button`
@@ -84,6 +114,7 @@ const CartButton = styled.button`
     font-size: 40px;
     color: #FFFFFF;
     position: relative;
+    cursor: pointer;
 `;
 
 const CartNumber = styled.div`
@@ -99,7 +130,7 @@ const CartNumber = styled.div`
     justify-content: center;
     background-color: #FFFFFF;
     color: #38C2BF;
-    font-size: 30px;
+    font-size: 20px;
     line-height: normal;
     font-weight: 700;
 `;
@@ -114,7 +145,7 @@ const ProfileButton = styled.div`
     cursor: pointer;
     & span {
         margin-left: 12px;
-        font-size: 30px;
+        font-size: 20px;
         font-weight: 700;
         line-height: 20px;
         text-align: center;
@@ -122,8 +153,9 @@ const ProfileButton = styled.div`
 `;
 
 const MenuBar = styled.div`
-    width: 70%;
-    font-size: 30px;
+    width: 100%;
+    padding: 0px 15%;
+    font-size: 20px;
     font-weight: 700;
     color: #FFFFFF;
     display: flex;
@@ -134,11 +166,16 @@ const MenuBar = styled.div`
             text-decoration: underline;
         }
     }
+
+    @media(max-width: 950px) {
+        display: none;
+    }
 `;
 
 export {
     TopBarContainer,
     MainBar,
+    MenuButton,
     Title,
     ProfileButton,
     SearchBar,
