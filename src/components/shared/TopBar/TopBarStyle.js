@@ -21,6 +21,11 @@ const MainBar = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
+    @media(max-width: 950px) {
+        padding-top: 60px;
+
+    }
 `;
 
 const Title = styled.span`
@@ -33,7 +38,26 @@ const Title = styled.span`
     color: #FFFFFF;
     position: fixed;
     top: calc(( 70px - 45px) / 2 );
-    left: calc( (100vw - 400px) / 2 );        
+    left: calc( (100vw - 400px) / 2 );
+
+    @media(max-width: 950px) {
+    font-size: 35px;
+    top: calc(( 45px - 35px) / 2 );
+    left: calc( (100vw - 400px) / 2 );
+
+    }   
+`;
+
+const MenuButton = styled.span`
+    display: none;
+    font-size: 35px;
+    cursor: pointer;
+    color: #FFFFFF;
+    margin-top: 10px;
+
+    @media(max-width: 950px) {
+    display: block;
+    }   
 `;
 
 const SearchBar = styled.div`
@@ -75,6 +99,10 @@ const Buttons = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media(max-width: 600px) {
+        display: none;
+    } 
 `;
 
 const CartButton = styled.button`
@@ -125,7 +153,8 @@ const ProfileButton = styled.div`
 `;
 
 const MenuBar = styled.div`
-    width: 70%;
+    width: 100%;
+    padding: 0px 15%;
     font-size: 20px;
     font-weight: 700;
     color: #FFFFFF;
@@ -137,11 +166,16 @@ const MenuBar = styled.div`
             text-decoration: underline;
         }
     }
+
+    @media(max-width: 950px) {
+        display: none;
+    }
 `;
 
 export {
     TopBarContainer,
     MainBar,
+    MenuButton,
     Title,
     ProfileButton,
     SearchBar,

@@ -1,5 +1,6 @@
 import {
     TopBarContainer,
+    MenuButton,
     Title,
     ProfileButton,
     SearchBar,
@@ -11,32 +12,35 @@ import {
     MainBar,
     MenuBar,
 } from "./TopBarStyle";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiMenu} from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
 
 export default function TopBar() {
     return (
         <TopBarContainer>
+            <Title> Farrapo Store </Title>
             <MainBar>
+                <MenuButton>
+                    <FiMenu />
+                </MenuButton>
                 <SearchBar>
                     <SearchInput />
                     <SearchButton>
                         <AiOutlineSearch />
                     </SearchButton>
                 </SearchBar>
-                <Title> Farrapo Store </Title>
                 <Buttons>
-                <CartButton>
-                    <FiShoppingCart />
-                    <CartNumber>
-                        2
-                    </CartNumber>
-                </CartButton>
-                <ProfileButton>
-                        <HiOutlineUserCircle />
-                        <span>Entre ou <br /> Cadastre-se</span>    
-                </ProfileButton>
+                    <CartButton>
+                        <FiShoppingCart />
+                        <CartNumber>
+                            2
+                        </CartNumber>
+                    </CartButton>
+                    <ProfileButton>
+                            <HiOutlineUserCircle />
+                            <span>Entre ou <br /> Cadastre-se</span>    
+                    </ProfileButton>
                 </Buttons>
             </MainBar>
             <MenuBar>

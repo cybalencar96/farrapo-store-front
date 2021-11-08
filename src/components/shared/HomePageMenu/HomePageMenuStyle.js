@@ -26,19 +26,30 @@ const MenuTopBar = styled.div`
             text-decoration: underline;
         }
     }
+
+    @media(max-width: 600px) {
+        font-size: 24px;
+        justify-content: center;
+        & button {
+            display: none;
+        }
+    } 
 `;
 
 const ItemBoxes = styled.div`
-    width: calc(100% - 90px);
+    max-width: calc(100% - 90px);
     display: flex;
     justify-content: space-between;
     overflow: hidden;
     margin-bottom: 40px;
     scroll-behavior: smooth;
+    @media(max-width: 600px) {
+        overflow: scroll;
+    } 
 `;
 
 const ItemBox = styled.div`
-    width: 200px;
+    min-width: 200px;
     height: 280px;
     margin-right: 24px;
     margin-bottom: 16px;
@@ -53,11 +64,19 @@ const ItemBox = styled.div`
         filter: brightness(.95);
     }
     & img {
-        height: 200px;
+        height: 190px;
         width: 190px;
         object-fit: contain;
     }
 
+    @media(max-width: 600px) {
+        min-width: calc( 100vw - 130px );
+        height: calc( (100vw - 130px) * 1.4);
+        & img {
+            height: calc( 100vw - 180px );
+            width: calc( 100vw - 180px );
+        }
+    } 
 `;
 
 const ItemTitle = styled.span`
@@ -69,6 +88,11 @@ const ItemTitle = styled.span`
     text-overflow: ellipsis;
     font-size: 18px;
     color: #08B2AE;
+
+    @media(max-width: 600px) {
+        height: calc(15vw);
+        font-size: calc(7vw);
+    }
 `;
 
 const ItemPrice = styled.span`
@@ -78,6 +102,12 @@ const ItemPrice = styled.span`
     font-size: 24px;
     font-weight: 700;
     color: #08B2AE;
+
+    @media(max-width: 600px) {
+        margin-top: 30px;
+        height: calc(15vw);
+        font-size: calc(7vw);
+    }
 `;
 
 const ScrollLeftButton = styled(FiArrowLeftCircle)`
@@ -88,6 +118,10 @@ const ScrollLeftButton = styled(FiArrowLeftCircle)`
     user-select: none;
     left: 0px;
     top: 190px;
+
+    @media(max-width: 600px) {
+        display: none;
+    } 
 `;
 
 const ScrollRightButton = styled(FiArrowRightCircle)`
@@ -98,6 +132,9 @@ const ScrollRightButton = styled(FiArrowRightCircle)`
     user-select: none;
     right: 0px;
     top: 190px;
+    @media(max-width: 600px) {
+        display: none;
+    } 
 `;
 
 export {

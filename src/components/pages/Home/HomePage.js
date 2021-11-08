@@ -11,8 +11,7 @@ export default function HomePage() {
     useEffect(() => {
         api.getHomepageItens()
             .then(resp => {
-                console.log(resp.data)
-                setMenus(resp.data)
+                setMenus(resp.data);
             })
             .catch(err => console.log(err));
     },[]);
