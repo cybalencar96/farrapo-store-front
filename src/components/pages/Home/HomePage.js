@@ -1,20 +1,26 @@
 import { HomeContainer } from './HomePageStyle';
 import Menu from '../../shared/HomePageMenu/HomePageMenu';
 import { useEffect, useState } from 'react';
-import {mockMenu} from "../../../mocks/mockItens";
+import api from '../../../services/api';
+import { LoadingHomePage } from '../../shared/Loadings';
 
 export default function HomePage() {
 
-    const [menus, setMenus] = useState(mockMenu);
+    const [menus, setMenus] = useState([]);
 
     useEffect(() => {
-        //getMenus();
+        api.getHomepageItens()
+            .then(resp => {
+                console.log(resp.data)
+                setMenus(resp.data)
+            })
+            .catch(err => console.log(err));
     },[]);
 
     if (menus.length === 0) {
         return (
         <HomeContainer>
-
+            <LoadingHomePage />
         </HomeContainer>
         );
     }

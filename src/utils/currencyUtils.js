@@ -1,5 +1,5 @@
 function numberToCurrency(number) {
-    return `R$ ${number.toFixed(2).replace(".",",")}`
+    return `R$ ${Number(number).toFixed(2).replace(".",",")}`
 }
 
 export {
