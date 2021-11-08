@@ -9,11 +9,12 @@ import {
     changeInputs,
     signup,
 } from './SignupPageFunctions'
+import { ButtonLoading } from '../../shared/Loadings.js';
 
 
 export default function SignupPage() {
     const navigate = useNavigate();
-
+    const [buttonLoading, setButtonLoading] = useState(false);
     const  [inputs, setInputs] = useState({
         name: '',
         email: '',
@@ -31,7 +32,7 @@ export default function SignupPage() {
     return (
         <SignupContainer>
             <h1>Sign up</h1>
-            <SignUpForm onSubmit={e => signup(e, inputs, navigate)}>
+            <SignUpForm onSubmit={e => signup(e, inputs, navigate, setButtonLoading)}>
                 <div className='inputs'>
                     <input placeholder="name" className="tp1" required
                         onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.name}
@@ -92,7 +93,7 @@ export default function SignupPage() {
                     />
                 </div>
 
-                <button type="submit">Cadastrar</button>
+                <button type="submit">{buttonLoading ? ButtonLoading : 'Cadastrar'}</button>
             </SignUpForm>
             
         </SignupContainer>

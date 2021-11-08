@@ -24,8 +24,9 @@ function changeInputs(e, inputs, setInputs) {
 
 }
 
-function signin(e, inputs, navigate) {
+function signin(e, inputs, navigate, setButtonLoading) {
     e.preventDefault();
+    setButtonLoading(true)
 
     api.signin(inputs)
     .then(res => {
@@ -33,6 +34,7 @@ function signin(e, inputs, navigate) {
         navigate('/');
     })
     .catch(err => {
+        setButtonLoading(false)
         sendErrorAlert(err.response.data)
     });
 }

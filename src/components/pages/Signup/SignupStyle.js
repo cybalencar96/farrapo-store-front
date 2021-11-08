@@ -4,7 +4,7 @@ const SignupContainer = styled.main`
     margin-top: 100px;
     padding-top: 50px;
     padding-bottom: 150px;
-    background-image: url('https://www.nicepng.com/png/detail/215-2154046_transparent-geometric-background-png.png');
+    background-image: url('/logActions-bg.png');
     background-repeat: round;
 
     display: flex;
@@ -68,7 +68,7 @@ const SignUpForm = styled.form`
     & .birth {
         width:150px;
         height:30px;
-        font-size: 18px;
+        font-size: 16px;
     }
 
     & button {

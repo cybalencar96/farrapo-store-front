@@ -102,14 +102,17 @@ function changeInputs(e, inputs, setInputs) {
     }
 }
 
-function signup(e, inputs, navigate) {
+function signup(e, inputs, navigate, setButtonLoading) {
     e.preventDefault();
+    setButtonLoading(true);
 
     if (!passwordRegex.test(inputs.password)) {
+        setButtonLoading(false)
         return sendErrorAlert(passwordErrMessage)
     }
 
     if (inputs.password !== inputs.confirmPass) {
+        setButtonLoading(false)
         return sendErrorAlert("password and confirmation must match")
     }
 
@@ -130,6 +133,7 @@ function signup(e, inputs, navigate) {
         navigate('/signin')
     })
     .catch(err => {
+        setButtonLoading(false)
         switch (err.response.status) {
             case 409: sendErrorAlert('Email already exists. Please signin or try another one')
                 break;

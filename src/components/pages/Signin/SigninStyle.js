@@ -3,7 +3,7 @@ import styled from "styled-components";
 const SigninContainer = styled.main`
     margin-top: 100px;
     height: calc(100vh - 100px);
-    background-image: url('https://www.nicepng.com/png/detail/215-2154046_transparent-geometric-background-png.png');
+    background-image: url('/logActions-bg.png');
     
     display: flex;
     justify-content: center;

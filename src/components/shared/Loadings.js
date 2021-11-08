@@ -11,13 +11,13 @@ function PageLoading() {
 }
 
 function ButtonLoading() {
-    Loading('ThreeDots','white', '30px','30px')
+    return Loading('ThreeDots','white', '40px','40px')
 }
 
 const PageLoadingContainer = styled.main`
     width: 100vw;
     height: calc(100vh - 100px);
-    background-image: url('https://www.nicepng.com/png/detail/215-2154046_transparent-geometric-background-png.png')
+    background-image: url('/logActions-bg.png');
 `
 
 export {
