@@ -1,17 +1,15 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-const SignupContainer = styled.main`
+const SigninContainer = styled.main`
     margin-top: 100px;
-    padding-top: 50px;
-    padding-bottom: 150px;
+    height: calc(100vh - 100px);
     background-image: url('/logActions-bg.png');
-    background-repeat: round;
-
+    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 30px;
+    gap: 50px;
 
     & > h1 {
         font-family: 'Cinzel', serif;
@@ -20,7 +18,7 @@ const SignupContainer = styled.main`
     }
 `
 
-const SignUpForm = styled.form`
+const SigninForm = styled.form`
     width: 50vw;
     max-width: 500px;
     
@@ -29,14 +27,15 @@ const SignUpForm = styled.form`
         flex-direction: column;
         gap: 50px;
     }
+
     & .inputs .tp1 {
         width: 100%;
         border: none;
         height: 50px;
         border-bottom: 1px solid lightgray;
         padding-left: 10px;
-        font-size: 18px;
-
+        font-size: 20px;
+        background-color: #F6F6F6;
     }
 
     & .inputs .tp1:focus {
@@ -45,35 +44,9 @@ const SignUpForm = styled.form`
         padding: 0;
     }
 
-    & .gender-radios {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    & .radio {
-        min-width: 20px;
-        width: 20px;
-        height: 22px;
-    }
-
-    & .gender-radios label{
-        margin-right: 10px;
-    }
-
-    & div > label {
-        font-size: 30px;
-    }
-
-    & .birth {
-        width:150px;
-        height:30px;
-        font-size: 16px;
-    }
-
     & button {
         width: 100%;
-        height: 60px;
+        height: 40px;
         border-radius: 50px;
         border: none;
         margin-top: 50px;
@@ -84,21 +57,10 @@ const SignUpForm = styled.form`
         font-weight: bold;
         color: white;
     }
-
-    @media (max-width: 750px) {
-        & .gender-radios {
-            flex-direction: column;
-        }
-
-        & .genders-container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
+    
 `
 
 export {
-    SignupContainer,
-    SignUpForm,
+    SigninContainer,
+    SigninForm,
 }
