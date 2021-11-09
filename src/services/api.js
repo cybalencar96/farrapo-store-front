@@ -14,10 +14,16 @@ function getHomepageItens() {
     return axios.get('/items/homepage');
 }
 
+function getItem(itemId) {
+    return axios.get(`/items/${itemId}`);
+}
+
+
 const api = {
     signup,
     signin,
     getHomepageItens,
+    getItem,
 }
 
 export default api;
