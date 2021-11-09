@@ -15,11 +15,17 @@ import {
 import { FiShoppingCart, FiMenu} from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import { useNavigate } from 'react-router-dom';
 
 export default function TopBar() {
+    const navigate = useNavigate();
+    const menuOptions = ['Novidades', 'Moda Masculina', 'Moda Feminina', 'Infantil', 'Outras Categorias'];
+
     return (
         <TopBarContainer>
-            <Title> Farrapo Store </Title>
+            <Title onClick={() => navigate('/')} >
+                Farrapo Store
+            </Title>
             <MainBar>
                 <MenuButton>
                     <FiMenu />
@@ -34,21 +40,19 @@ export default function TopBar() {
                     <CartButton>
                         <FiShoppingCart />
                         <CartNumber>
-                            2
+                            0
                         </CartNumber>
                     </CartButton>
-                    <ProfileButton>
+                    <ProfileButton onClick = {() => navigate('/signin')}>
                             <HiOutlineUserCircle />
                             <span>Entre ou <br /> Cadastre-se</span>    
                     </ProfileButton>
                 </Buttons>
             </MainBar>
             <MenuBar>
-                <span> Novidades </span>
-                <span> Moda Masculina </span>
-                <span> Moda Feminina </span>
-                <span> Infantil </span>
-                <span> Outras Categorias </span>
+                {menuOptions.map( (option, index) =>
+                    <span key = {index}> {option} </span>
+                )}
             </MenuBar>
         </TopBarContainer>
     );

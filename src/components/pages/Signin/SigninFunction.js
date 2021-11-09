@@ -4,6 +4,7 @@ import {
 } from '../../../utils/SweetAlert'
 import api from "../../../services/api"
 
+
 function changeInputs(e, inputs, setInputs) {
     const inputPlaceholder = e.target.placeholder;
     const inputValue = e.target.value;
@@ -24,12 +25,19 @@ function changeInputs(e, inputs, setInputs) {
 
 }
 
-function signin(e, inputs, navigate, setButtonLoading) {
+function signin(e, inputs, navigate, setButtonLoading, setUserData) {
     e.preventDefault();
     setButtonLoading(true)
 
     api.signin(inputs)
     .then(res => {
+        setUserData({
+            id: res.data.id,
+            name: res.data.name,
+            email: res.data.email,
+            token: res.data.token,
+            image: res.data.image
+        })
         sendSuccessAlert();
         navigate('/');
     })

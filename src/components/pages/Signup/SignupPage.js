@@ -9,6 +9,7 @@ import {
     signup,
 } from './SignupPageFunctions'
 import { ButtonLoading } from '../../shared/Loadings.js';
+import UnderButtonMessage from "../../shared/UnderButtonMessage";
 
 
 export default function SignupPage() {
@@ -111,6 +112,9 @@ export default function SignupPage() {
 
                 <button type="submit">{buttonLoading ? <ButtonLoading /> : 'Cadastrar'}</button>
             </SignUpForm>
+            <UnderButtonMessage disabled = {buttonLoading} onClick = { () => navigate("/signin")}>
+                Já possui uma conta? Faça seu login!
+            </UnderButtonMessage>
             
         </SignupContainer>
     )
