@@ -23,6 +23,15 @@ function LoadingHomePage() {
     )
 }
 
+function LoadingItem() {
+    return (
+        <HomepageLoadingContainer homepage = {true}>
+            {Loading('TailSpin', '#08B2AE', '200px', '200px')}
+            <LoadingTitle> Carregando... </LoadingTitle>
+        </HomepageLoadingContainer>
+    )
+}
+
 const PageLoadingContainer = styled.main`
     width: 100vw;
     height: calc(100vh - 100px);
@@ -37,7 +46,7 @@ const HomepageLoadingContainer = styled.main`
 `
 
 const LoadingTitle = styled.span`
-    font-size: 60px;
+    font-size: 50px;
     display: inline-block;
     margin-top: 100px;
     color: #08B2AE;
@@ -47,4 +56,5 @@ export {
     PageLoading,
     ButtonLoading,
     LoadingHomePage,
+    LoadingItem,
 }
