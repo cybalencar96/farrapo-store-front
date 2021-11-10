@@ -61,6 +61,7 @@ const ItemContainer = styled.section`
         justify-content: center;
         align-items: center;
         gap: 20px;
+        margin-top: 50px;
     }
 
     & .right-side .buy-button-container button {
@@ -70,6 +71,11 @@ const ItemContainer = styled.section`
 
         font-size: 20px;
         color: white;
+        cursor: pointer;
+    }
+    & .right-side .buy-button-container .no-item {
+        background-color: grey;
+        color: black;
     }
 
     & .right-side .buy-button-container .iwant {
