@@ -22,7 +22,8 @@ export default function ItemPage() {
                     <p className='price'>R$ 190</p>
                     <p className='qty'>2 unidade(s)</p>
                     <div className='buy-button-container'>
-                        <button >{true ? 'Comprar' : 'produto vendido'}</button>
+                        <button className="iwant">{true ? 'Eu quero!' : 'produto vendido'}</button>
+                        <button className="add-cart">{true ? 'Adicionar ao carrinho' : 'produto vendido'}</button>
                     </div>
                     <div className='size-container'>
                         tamanho
@@ -31,8 +32,8 @@ export default function ItemPage() {
                     <p className='description'>
                         <span>Descrição</span>
                         tênis de couro branco com detalhes da marca em relevo
-                        solado de borracha off white
-                        tamanho 38 (26 cm)
+                        solado de borracha off white <br /><br />
+                        tamanho 38 (26 cm) <br />
                         sem nenhum defeito
                     </p>
                 </div>

@@ -12,18 +12,21 @@ const ItemPageContainer = styled.main`
 const ItemContainer = styled.section`
     display: flex;
     width: calc(100vw - 80px);
-    justify-content: space-between;
+    justify-content: space-evenly;
+    gap: 20px;
 
     & .left-side {
-        width: 50%;
+        width: 700px;
         display: flex;
         flex-direction: column;
         align-items: center;
+
     }
 
     & .left-side img {
         border-radius: 5px;
-        width: 80%;
+        width: 100%;
+        min-width: 250px;
     }
 
     & .right-side {
@@ -41,28 +44,50 @@ const ItemContainer = styled.section`
 
     & .right-side .item-name {
         font-weight: bold;
-        font-size: 35px;
+        font-size: 30px;
     }
 
     & .right-side .price {
         font-weight: bold;
         font-size: 30px;
         letter-spacing: 2px;
+        color: #38C2BF;
     }
 
     & .right-side .buy-button-container {
         width: 100%;
         display: flex;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
+        gap: 20px;
     }
 
     & .right-side .buy-button-container button {
         width: 75%;
         height: 55px;
-        background-color: green;
         border-radius: 4px;
 
-        font-size: 25px;
+        font-size: 20px;
+        color: white;
+    }
+
+    & .right-side .buy-button-container .iwant {
+        background-color: green;
+    }
+
+    & .right-side .buy-button-container .iwant:hover {
+        background-color: #39a857;
+    }
+
+    & .right-side .buy-button-container .add-cart {
+        background-color: white;
+        color: #38C2BF;
+        border: 1px solid #38C2BF;
+    }
+
+    & .right-side .buy-button-container .add-cart:hover {
+        background-color: #38C2BF;
         color: white;
     }
 
@@ -96,6 +121,25 @@ const ItemContainer = styled.section`
 
     & .right-side .description {
         font-size: 19px;
+    }
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+        gap: 50px;
+        & .left-side {
+            margin: 0 auto;
+        }
+
+        & .left-side img {
+            width: 70%;
+        }
+
+        & .right-side {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
     }
 `
 
