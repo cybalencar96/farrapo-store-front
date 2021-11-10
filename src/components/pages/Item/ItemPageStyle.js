@@ -26,7 +26,7 @@ const ItemContainer = styled.section`
     & .left-side img {
         border-radius: 5px;
         width: 100%;
-        min-width: 250px;
+        min-width: 300px;
     }
 
     & .right-side {
@@ -132,8 +132,10 @@ const ItemContainer = styled.section`
     @media (max-width: 900px) {
         flex-direction: column;
         gap: 100px;
+        
         & .left-side {
             width: auto;
+            height: auto;
             margin: 0 auto;
         }
 

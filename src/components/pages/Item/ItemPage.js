@@ -20,6 +20,10 @@ export default function ItemPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        setItem('');
+        setMenu1('');
+        setMenu2('');
+        window.scrollTo(0, 0);
         api.getItem(itemId)
             .then(res => {
                 setItem(res.data)
