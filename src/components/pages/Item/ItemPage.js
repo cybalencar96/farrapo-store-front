@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
     ItemPageContainer,
     ItemContainer,
@@ -7,12 +7,17 @@ import {
 import api from '../../../services/api';
 import Menu from '../../shared/HomePageMenu/HomePageMenu';
 import { LoadingItem } from '../../shared/Loadings.js'
+import {
+    sendErrorAlert,
+} from '../../../utils/SweetAlert.js';
+
 export default function ItemPage() {
     const [menu1, setMenu1] = useState('');
     const [menu2, setMenu2] = useState('');
     const [item, setItem] = useState('');
     const locationArr = useLocation().pathname.split('/');
     const itemId = locationArr[locationArr.length - 1]
+    const navigate = useNavigate();
 
     useEffect(() => {
         api.getItem(itemId)
@@ -29,6 +34,12 @@ export default function ItemPage() {
                     setMenu2(resp.data);
                 })
                 .catch(err => console.log(err));
+            })
+            .catch(err => {
+                console.log(err)
+                sendErrorAlert('Item not found')
+                navigate('/')
+
             });
 
  
@@ -73,23 +84,23 @@ export default function ItemPage() {
             }
             
 
-                {
-                    !item || !menu1 ? <LoadingItem /> :
-                    <Menu
-                        title={`Que tal um pouco mais de ${item.color}`}
-                        forwardMessage="Me mostre mais!"
-                        itens = {menu1}
-                    />
-                }
-                {
-                    !item || !menu2 ? <LoadingItem /> :
-                    <Menu
-                    title={`${item.categories[0]} que você também pode gostar`}
+            {
+                !item || !menu1 ? <LoadingItem /> :
+                <Menu
+                    title={`Que tal um pouco mais de ${item.color}`}
                     forwardMessage="Me mostre mais!"
-                    itens = {menu2}
-                    />
-                }
-                
+                    itens = {menu1}
+                />
+            }
+            {
+                !item || !menu2 ? <LoadingItem /> :
+                <Menu
+                title={`${item.categories[0]} que você também pode gostar`}
+                forwardMessage="Me mostre mais!"
+                itens = {menu2}
+                />
+            }
+            
 
                 
         </ItemPageContainer>

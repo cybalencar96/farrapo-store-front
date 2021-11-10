@@ -2,16 +2,16 @@ import styled from "styled-components";
 
 const ItemPageContainer = styled.main`
     margin-top: 100px;
-    padding: 20px 40px;
+    padding: 20px 20px;
 
     display: flex;
     flex-direction: column;
-    gap: 150px;
+    gap: 50px;
 `
 
 const ItemContainer = styled.section`
     display: flex;
-    width: calc(100vw - 80px);
+    width: calc(100vw - 40px);
     justify-content: space-evenly;
     gap: 20px;
 
@@ -131,8 +131,9 @@ const ItemContainer = styled.section`
 
     @media (max-width: 900px) {
         flex-direction: column;
-        gap: 50px;
+        gap: 100px;
         & .left-side {
+            width: auto;
             margin: 0 auto;
         }
 
@@ -141,11 +142,11 @@ const ItemContainer = styled.section`
         }
 
         & .right-side {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
     }
 `
 

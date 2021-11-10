@@ -11,7 +11,7 @@ function signin(body) {
 }
 
 function getHomepageItens() {
-    return axios.get('/items/homepage');
+    return axios.get('/homepage/items');
 }
 
 function getItem(itemId) {

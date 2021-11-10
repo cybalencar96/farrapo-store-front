@@ -8,7 +8,6 @@ const GlobalStyles = createGlobalStyle`
     body {
         font-family: 'Mukta', sans-serif;
         font-weight: 400;
-        font-size: 100%;
     }
 `
 
