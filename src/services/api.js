@@ -20,7 +20,7 @@ function signin(body) {
 }
 
 function getHomepageItens(token) {
-    return axios.get('/items/homepage', createConfig(token));
+    return axios.get('/homepage/items', createConfig(token));
 }
 
 const api = {
