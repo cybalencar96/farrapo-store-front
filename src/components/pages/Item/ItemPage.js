@@ -47,7 +47,7 @@ export default function ItemPage() {
             });
 
  
-    },[ itemId ]);
+    }, [itemId, navigate]);
 
     return (
         <ItemPageContainer>
@@ -104,8 +104,6 @@ export default function ItemPage() {
                 itens = {menu2}
                 />
             }
-            
-
                 
         </ItemPageContainer>
     )

@@ -13,7 +13,7 @@ import { useState } from "react";
 import SigninPage from "./components/pages/Signin/SigninPage";
 import ItemPage from "./components/pages/Item/ItemPage";
 export default function App() {
-	const [userData, setUserData] = useState({ name: "", zipCode: "", streetNumber: 0, complement: "", phone: "", image: "", birthDate: "", gender: "", token: "" });
+  const [userData, setUserData] = useState({ id: "", name: "", email: "", image: "", token: "", cart: []});
 
   return (
     <BrowserRouter>

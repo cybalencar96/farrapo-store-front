@@ -1,17 +1,30 @@
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL || 'https://farrapo-store-prod.herokuapp.com';
-console.log(axios.defaults.baseURL)
+
+function createConfig(userToken) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    }
+    return config;
+}
+
 function signup(body) {
-    return axios.post('/signup', body)
+    return axios.post('/signup', body);
 }
 
 function signin(body) {
-    return axios.post('/signin', body)
+    return axios.post('/signin', body);
 }
 
-function getHomepageItens() {
-    return axios.get('/homepage/items');
+function logout(token) {
+    return axios.post('/logout', "", createConfig(token));
+}
+
+function getHomepageItens(token) {
+    return axios.get('/homepage/items', createConfig(token));
 }
 
 function getItem(itemId) {
@@ -45,6 +58,7 @@ const api = {
     getHomepageItens,
     getItem,
     getItems,
+    logout,
 }
 
 export default api;

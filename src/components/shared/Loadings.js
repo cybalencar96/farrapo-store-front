@@ -14,6 +14,10 @@ function ButtonLoading() {
     return Loading('ThreeDots','white', '40px','40px')
 }
 
+function TextLoading() {
+    return Loading('ThreeDots','green', '40px','40px')
+}
+
 function LoadingHomePage() {
     return (
         <HomepageLoadingContainer homepage = {true}>
@@ -57,4 +61,5 @@ export {
     ButtonLoading,
     LoadingHomePage,
     LoadingItem,
+    TextLoading,
 }
