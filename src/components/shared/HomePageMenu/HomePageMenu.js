@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     MenuContainer,
     MenuTopBar,
@@ -14,7 +15,7 @@ import { numberToCurrency } from "../../../utils/currencyUtils";
 
 export default function Menu({title, forwardMessage, itens}) {
     const divMenuRef = useRef();
-
+    const navigate = useNavigate();
     return (
         <MenuContainer>
             <MenuTopBar>
@@ -23,8 +24,8 @@ export default function Menu({title, forwardMessage, itens}) {
             </MenuTopBar>
             <ScrollLeftButton onClick={ (e) => scrollHorizontally(e, divMenuRef, "left", 220) }/>
             <ItemBoxes ref={divMenuRef}>
-            {itens.map(( {image, name, price}, index) => (
-                <ItemBox key={index} >
+            {itens.map(( {id, image, name, price}, index) => (
+                <ItemBox key={index} onClick={() => navigate(`/items/${id}`)}>
                     <ItemTitle> {name} </ItemTitle>
                     <img alt={name} src={image} />
                     <ItemPrice> {numberToCurrency(price)} </ItemPrice>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { AiOutlineDown } from "react-icons/ai";
 
 const TopBarContainer = styled.section`
     width: 100%;
@@ -140,6 +141,8 @@ const ProfileButton = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
+    position: relative;
+    z-index: 5;
     font-size: 45px;
     color: #FFFFFF;
     cursor: pointer;
@@ -150,6 +153,19 @@ const ProfileButton = styled.div`
         line-height: 20px;
         text-align: center;
     }
+    & img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+`;
+
+const ProfileMenuArrow = styled(AiOutlineDown)`
+    margin-left: 8px;
+    font-size: 24px;
+    transform: ${ ({ isOpened }) => isOpened ? "rotate(180deg)" : "rotate(0deg)"};
+    transition: transform 400ms;
 `;
 
 const MenuBar = styled.div`
@@ -172,6 +188,28 @@ const MenuBar = styled.div`
     }
 `;
 
+const ProfileMenuOptions = styled.div`
+    width: 180px;
+    position: fixed;
+    top: 62px;
+    right: max(calc((100vw - 1300px) /2 ), 20px);
+    padding: 10px 12px 0px;
+    z-index: 5;
+    background-color: #FFFFFF;
+    border: 1px solid #CDCDCD;
+    border-radius: 0px 10px 10px 10px;
+    display: ${ ({isOpened}) => isOpened ? "flex" : "none"};
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: left;
+    & span {
+        margin-bottom: 10px;
+        cursor: pointer;
+        color: #08B2AE;
+        font-size: 16px;
+    }
+`;
+
 export {
     TopBarContainer,
     MainBar,
@@ -184,5 +222,7 @@ export {
     CartButton,
     CartNumber,
     Buttons,
-    MenuBar
+    MenuBar,
+    ProfileMenuOptions,
+    ProfileMenuArrow,
 };
