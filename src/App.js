@@ -12,6 +12,7 @@ import UserDataContext from "./contexts/userDataContext";
 import { useState } from "react";
 import SigninPage from "./components/pages/Signin/SigninPage";
 import SearchItems from "./components/pages/SearchItems/SearchItems";
+import ItemPage from "./components/pages/Item/ItemPage";
 
 export default function App() {
   const [userData, setUserData] = useState({ id: "", name: "", email: "", image: "", token: "", cart: []});
@@ -27,6 +28,8 @@ export default function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/search/:itemName&:filters" element={<SearchItems />} />
+          <Route path="/items/:id" element={<ItemPage />} />
+          <Route path="*" element={<HomePage />} />
         </Routes>
       </UserDataContext.Provider>
     </BrowserRouter>

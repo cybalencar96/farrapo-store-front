@@ -14,10 +14,23 @@ function ButtonLoading() {
     return Loading('ThreeDots','white', '40px','40px')
 }
 
+function TextLoading() {
+    return Loading('ThreeDots','green', '40px','40px')
+}
+
 function LoadingHomePage() {
     return (
         <HomepageLoadingContainer homepage = {true}>
             {Loading('TailSpin', '#08B2AE', '300px', '300px')}
+            <LoadingTitle> Carregando... </LoadingTitle>
+        </HomepageLoadingContainer>
+    )
+}
+
+function LoadingItem() {
+    return (
+        <HomepageLoadingContainer homepage = {true}>
+            {Loading('TailSpin', '#08B2AE', '200px', '200px')}
             <LoadingTitle> Carregando... </LoadingTitle>
         </HomepageLoadingContainer>
     )
@@ -37,7 +50,7 @@ const HomepageLoadingContainer = styled.main`
 `
 
 const LoadingTitle = styled.span`
-    font-size: 60px;
+    font-size: 50px;
     display: inline-block;
     margin-top: 100px;
     color: #08B2AE;
@@ -47,4 +60,6 @@ export {
     PageLoading,
     ButtonLoading,
     LoadingHomePage,
+    LoadingItem,
+    TextLoading,
 }

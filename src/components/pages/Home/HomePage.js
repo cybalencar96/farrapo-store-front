@@ -10,6 +10,7 @@ export default function HomePage() {
     const [menus, setMenus] = useState([]);
 
     useEffect(() => {
+        setMenus([]);
         api.getHomepageItens(userData.token)
             .then(resp => {
                 setMenus(resp.data);
