@@ -37,18 +37,19 @@ function signin(e, inputs, navigate, setButtonLoading, setUserData, userData) {
             token: res.data.token,
             image: res.data.image,
             visitorToken: '',
-            cart: [...userData.cart]
+            cart: userData.cart
         }
 
         setUserData(userLogged);
-        localStorage.setItem('farrapo', userLogged);
+        localStorage.setItem('farrapo', JSON.stringify(userLogged));
 
         sendSuccessAlert();
         navigate('/');
     })
     .catch(err => {
         setButtonLoading(false)
-        sendErrorAlert(err.response.data)
+        console.log(err)
+        if (err.response) sendErrorAlert(err.response.data)
     });
 }
 

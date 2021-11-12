@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import {v4 as uuid} from 'uuid'
 import {
     ItemPageContainer,
     ItemContainer,
@@ -9,26 +10,26 @@ import Menu from '../../shared/HomePageMenu/HomePageMenu';
 import { LoadingItem } from '../../shared/Loadings.js'
 import { sendErrorAlert, sendSuccessAlert } from '../../../utils/SweetAlert.js';
 import UserDataContext from '../../../contexts/userDataContext';
+import CartContext from '../../../contexts/cartContext';
+
 
 export default function ItemPage() {
     const [menu1, setMenu1] = useState('');
     const [menu2, setMenu2] = useState('');
     const [item, setItem] = useState('');
+    const { cart, setCart } = useContext(CartContext);
     const locationArr = useLocation().pathname.split('/');
     const itemId = locationArr[locationArr.length - 1]
     const navigate = useNavigate();
-    const { userData, setUserData } = useContext(UserDataContext);
+    const { userData } = useContext(UserDataContext);
 
     useEffect(() => {
         setItem('');
         setMenu1('');
         setMenu2('');
+
         window.scrollTo(0, 0);
 
-        const user = JSON.parse(localStorage.getItem('farrapo'))
-        console.log(user)
-        setUserData(user);
-        
         api.getItem(itemId)
             .then(res => {
                 setItem(res.data)
@@ -59,14 +60,18 @@ export default function ItemPage() {
             itemId: itemId,
             quantity: 1,
         };
-
-        userData.id ? (body.userId = userData.id) : (body.visitorToken = userData.visitorToken)
+        
+        if (userData.userId) {
+            body['userId'] = userData.userId;
+        } else {
+            body['visitorToken'] = userData.visitorToken;
+        }
 
         api.addItemToCart(body)
             .then(res => {
-                const newCart = [...userData.cart, res.data.cartItemId] 
-                localStorage.setItem('farrapo', JSON.stringify({ ...userData, cart: newCart}))
-                setUserData({ ...userData, cart: newCart });
+                const newCart = [...cart, res.data.cartItemId] 
+                setCart(newCart);
+                localStorage.setItem('farrapo-cart', JSON.stringify(newCart))
                 sendSuccessAlert('Adicionado com sucesso! Acesse o carrinho para ver')
             })
             .catch(err => {
