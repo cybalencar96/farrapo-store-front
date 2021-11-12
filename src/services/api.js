@@ -52,6 +52,17 @@ function getItems(filters = {}) {
     return axios.get(`/items?${query}`)
 }
 
+function addItemToCart (body) {
+    return axios.post('/cart', body)
+}
+
+function getCartItems({ userId, visitorToken }) {
+    const clientId = userId ? userId : visitorToken;
+    const clientQuery = userId ? 'userId' : 'visitorToken';
+
+    return axios.get(`/cart?${clientQuery}=${clientId}`);
+}
+
 const api = {
     signup,
     signin,
@@ -59,6 +70,8 @@ const api = {
     getItem,
     getItems,
     logout,
+    addItemToCart,
+    getCartItems
 }
 
 export default api;

@@ -18,22 +18,50 @@ import { FiShoppingCart, FiMenu} from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import UserDataContext from "../../../contexts/userDataContext";
 import BlankSpace from "../BlankSpace";
 import { userLogOut } from "./TopBarFunctions";
 import { TextLoading } from "../Loadings";
+import CartContext from '../../../contexts/cartContext';
+import api from "../../../services/api";
+import {v4 as uuid} from 'uuid';
 
 export default function TopBar() {
     const navigate = useNavigate();
     const { userData, setUserData } = useContext(UserDataContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const { cart, setCart } = useContext(CartContext);
+
+
     const profileMenuOptions = [
         { title: "Minhas compras", onClick: "" },
         { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen)}},
     ]
     const categoriesOptions = ['Novidades', 'Moda Masculina', 'Moda Feminina', 'Infantil', 'Outras Categorias'];
+
+    useEffect(() => {
+        if (userData.userId) {
+            api.getCartItems({ userId: userData.userId })
+                .then(res => {
+                    setCart(res.data)
+                    localStorage.setItem('farrapo-cart', JSON.stringify(res.data))
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            api.getCartItems({ visitorToken: userData.visitorToken })
+            .then(res => {
+                setCart(res.data)
+                localStorage.setItem('farrapo-cart', JSON.stringify(res.data))
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    },[])
 
     return (
         <>
@@ -55,9 +83,12 @@ export default function TopBar() {
                     <Buttons>
                         <CartButton>
                             <FiShoppingCart />
-                            <CartNumber>
-                                0
-                            </CartNumber>
+                            {
+                                !cart.length ? '' :
+                                <CartNumber>
+                                    {cart.length}
+                                </CartNumber>
+                            }             
                         </CartButton>
                         {userData.name ?
                             <ProfileButton isOpened = {isMenuOpen} onClick = {() => setIsMenuOpen(!isMenuOpen)}>

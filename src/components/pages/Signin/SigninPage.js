@@ -14,7 +14,7 @@ import UserDataContext from '../../../contexts/userDataContext.js';
 
 export default function SigninPage() {
     const navigate = useNavigate();
-    const { setUserData } = useContext(UserDataContext);
+    const { userData, setUserData } = useContext(UserDataContext);
     const [buttonLoading, setButtonLoading] = useState(false);
     const  [inputs, setInputs] = useState({
         email: '',
@@ -25,7 +25,7 @@ export default function SigninPage() {
     return (
         <SigninContainer>
             <h1>Sign in</h1>
-            <SigninForm onSubmit={(e) => signin(e, inputs, navigate, setButtonLoading, setUserData)}>
+            <SigninForm onSubmit={(e) => signin(e, inputs, navigate, setButtonLoading, setUserData, userData)}>
                 <div className='inputs'>
                     <input placeholder="email" type="email" className="tp1"  required
                         onChange={e => changeInputs(e, inputs, setInputs)} value={inputs.email}
