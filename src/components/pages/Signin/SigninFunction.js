@@ -31,7 +31,7 @@ function signin(e, inputs, navigate, setButtonLoading, setUserData, userData) {
     api.signin(inputs)
     .then(res => {
         const userLogged = {
-            id: res.data.id,
+            userId: res.data.id,
             name: res.data.name,
             email: res.data.email,
             token: res.data.token,
