@@ -53,8 +53,7 @@ function getItems(filters = {}) {
 }
 
 function addItemToCart (body) {
-    console.log(body)
-    return axios.post(`/items/${body.itemId}/cart`, body)
+    return axios.post('/cart', body)
 }
 
 const api = {

@@ -7,7 +7,7 @@ import {
 import api from '../../../services/api';
 import Menu from '../../shared/HomePageMenu/HomePageMenu';
 import { LoadingItem } from '../../shared/Loadings.js'
-import { sendErrorAlert } from '../../../utils/SweetAlert.js';
+import { sendErrorAlert, sendSuccessAlert } from '../../../utils/SweetAlert.js';
 import UserDataContext from '../../../contexts/userDataContext';
 
 export default function ItemPage() {
@@ -67,6 +67,7 @@ export default function ItemPage() {
                 const newCart = [...userData.cart, res.data.cartItemId] 
                 localStorage.setItem('farrapo', JSON.stringify({ ...userData, cart: newCart}))
                 setUserData({ ...userData, cart: newCart });
+                sendSuccessAlert('Adicionado com sucesso! Acesse o carrinho para ver')
             })
             .catch(err => {
                 console.log(err.response);

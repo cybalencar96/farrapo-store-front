@@ -2,6 +2,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 import GlobalReset from "./assets/CSS Components/GlobalReset";
 import GlobalStyles from "./assets/CSS Components/GlobalStyles";
@@ -26,7 +27,7 @@ export default function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/items/:id" element={<ItemPage />} />
-          <Route path="*" element={<HomePage />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </UserDataContext.Provider>
     </BrowserRouter>
