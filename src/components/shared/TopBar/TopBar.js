@@ -45,8 +45,8 @@ export default function TopBar() {
         if (userData.userId) {
             api.getCartItems({ userId: userData.userId })
                 .then(res => {
-                    setCart(res.data.map(cartItem => cartItem.id))
-                    localStorage.setItem('farrapo-cart', JSON.stringify(res.data.map(cartItem => cartItem.id)))
+                    setCart(res.data)
+                    localStorage.setItem('farrapo-cart', JSON.stringify(res.data))
                 })
                 .catch(err => {
                     console.log(err);
@@ -55,7 +55,7 @@ export default function TopBar() {
             api.getCartItems({ visitorToken: userData.visitorToken })
             .then(res => {
                 setCart(res.data)
-                localStorage.setItem('farrapo-cart', JSON.stringify(res.data.map(cartItem => cartItem.id)))
+                localStorage.setItem('farrapo-cart', JSON.stringify(res.data))
             })
             .catch(err => {
                 console.log(err);

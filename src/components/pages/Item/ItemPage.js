@@ -69,7 +69,7 @@ export default function ItemPage() {
 
         api.addItemToCart(body)
             .then(res => {
-                const newCart = [...cart, res.data.cartItemId] 
+                const newCart = [...cart, res.data] 
                 setCart(newCart);
                 localStorage.setItem('farrapo-cart', JSON.stringify(newCart))
                 sendSuccessAlert('Adicionado com sucesso! Acesse o carrinho para ver')
