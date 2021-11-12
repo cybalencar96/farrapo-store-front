@@ -11,7 +11,7 @@ import {
     ScrollRightButton,
 } from "./HomePageMenuStyle";
 import { scrollHorizontally } from "./HomePageMenuFunctions";
-import { numberToCurrency } from "../../../utils/currencyUtils";
+import { numberToCurrency } from "../../../utils/stringsUtils";
 
 export default function Menu({title, forwardMessage, itens}) {
     const divMenuRef = useRef();

@@ -4,15 +4,30 @@ import {
     OptionsBox,
     ApplyButton,
 } from "./SearchOptionBoxStyle";
+import { updateFilters } from "../../pages/SearchItems/SearchItemsFunction";
+import { removeSpecialCharacters } from "../../../utils/stringsUtils";
 import { BsChevronDown } from "react-icons/bs";
 import { useState } from "react";
 import { toggleOptionCheckbox } from "./SearchOptionBoxFunctions";
+import { useNavigate } from "react-router";
 
-function SearchFilterBox({ title, type, isActive, options, selectedOptions, boxOnClick }) {
+function SearchFilterBox({ title, buttonType, filterType, isActive, options, selectedFilters, boxOnClick }) {
+    const selectedOptions = selectedFilters[filterType];
     const lowerCaseSelectedOptions = typeof (selectedOptions) === "string" ?
         selectedOptions.toLowerCase() :
         selectedOptions.map(option => option.toLowerCase());
-    const [areCheckBoxOptionsChecked, setAreCheckBoxOptionsChecked] = useState(options.map((option) => lowerCaseSelectedOptions.includes(option.toLowerCase())));
+    const [areCheckBoxOptionsChecked, setAreCheckBoxOptionsChecked] = useState(
+        options.map((option) =>
+            lowerCaseSelectedOptions.includes(removeSpecialCharacters(option).toLowerCase())
+        )
+    );
+    const filtersToBeApplied = {
+        type: filterType,
+        names: buttonType === "check" ?
+            options.filter((option, index) => areCheckBoxOptionsChecked[index]) :
+            options.filter((option, index) => areCheckBoxOptionsChecked[index])[0]
+    };
+    const navigate = useNavigate();
 
     return (
         <SingleFilterBox>
@@ -24,15 +39,15 @@ function SearchFilterBox({ title, type, isActive, options, selectedOptions, boxO
                     {options.map((optionTitle, index) => (
                         <div key={'filterOption' + index}>
                             <input
-                                type={type === "radio" ? "radio" : "checkbox"}
+                                type={buttonType === "radio" ? "radio" : "checkbox"}
                                 name={title}
-                                onChange={() => toggleOptionCheckbox(areCheckBoxOptionsChecked, setAreCheckBoxOptionsChecked, type, index)}
+                                onChange={() => toggleOptionCheckbox(areCheckBoxOptionsChecked, setAreCheckBoxOptionsChecked, buttonType, index)}
                                 checked={areCheckBoxOptionsChecked[index]}
                             />
                             <label>{optionTitle}</label>
                         </div>
                     ))}
-                    <ApplyButton>
+                    <ApplyButton onClick = { () => updateFilters(filtersToBeApplied, selectedFilters, navigate, boxOnClick)}>
                         Aplicar
                     </ApplyButton>
                 </OptionsBox>
@@ -41,9 +56,17 @@ function SearchFilterBox({ title, type, isActive, options, selectedOptions, boxO
     );
 }
 
-function SearchOrderingBox({ title, isActive, options, selectedOption, boxOnClick }) {
-    const possibleOptions = ["menor-preco", "mais-recente", "maior-preco", "menos-recente"];
+function SearchOrderingBox({ title, filterType, isActive, options, selectedFilters, boxOnClick }) {
+    const selectedOption = selectedFilters[filterType];
+    const possibleOptions = options.map(option => removeSpecialCharacters(option).toLowerCase());
     const optionsIndex = possibleOptions.indexOf(selectedOption);
+    const filterToBeApplied = (optionTitle) => {
+        return ({
+            type: filterType,
+            names: removeSpecialCharacters(optionTitle).toLocaleLowerCase()
+        });
+    };
+    const navigate = useNavigate();
     
     return (
         <SingleFilterBox>
@@ -55,9 +78,7 @@ function SearchOrderingBox({ title, isActive, options, selectedOption, boxOnClic
                 <OptionsBox>
                     {options.map((optionTitle, index) => (
                         <div key={'filterOption' + index}>
-                            <span
-                                onClick={() => console.log("To be implemented")}
-                            >
+                            <span onClick={() => updateFilters(filterToBeApplied(optionTitle), selectedFilters, navigate, boxOnClick)} >
                                 {optionTitle}
                             </span>
                         </div>

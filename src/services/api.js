@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL || 'https://farrapo-store-prod.herokuapp.com';
+axios.defaults.baseURL = "http://localhost:4000"
 
 function createConfig(userToken) {
     const config = {

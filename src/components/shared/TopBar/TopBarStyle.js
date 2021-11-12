@@ -210,6 +210,31 @@ const ProfileMenuOptions = styled.div`
     }
 `;
 
+const CategoriesSubBar = styled.div`
+    width: 180px;
+    background-color: #FFFFFF;
+    padding: 24px;
+    display: ${ ({ isShown }) => isShown ? "flex" : "none"};
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: calc((( 100% - (max(calc((100vw - 1300px) /2 ), 20px) * 2)) * 0.15 ) + max(calc((100vw - 1300px) /2 ), 20px) - 10px);
+    top: 100px;
+    z-index: 5;
+    border: 1px solid #000000;
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    & span {
+        font-size: 20px;
+        color: #08B2AE;
+        cursor: pointer;
+        margin-bottom: 18px;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+`;
+
 export {
     TopBarContainer,
     MainBar,
@@ -225,4 +250,5 @@ export {
     MenuBar,
     ProfileMenuOptions,
     ProfileMenuArrow,
+    CategoriesSubBar,
 };

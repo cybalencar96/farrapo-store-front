@@ -52,6 +52,7 @@ const UserFiltersBar = styled.div`
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+    overflow-x: hidden;
 `;
 
 const SingleUsedFilter = styled.div`
@@ -66,6 +67,7 @@ const SingleUsedFilter = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
     &:first-of-type {
         margin-left: 0px;
     }

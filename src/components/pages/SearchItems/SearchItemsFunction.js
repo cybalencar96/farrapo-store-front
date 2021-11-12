@@ -1,3 +1,5 @@
+import { removeSpecialCharacters } from "../../../utils/stringsUtils";
+
 function toggleFilterBox(menus, side, setMenus, index) {
     const newMenus = { ...menus };
     if (newMenus[side][index].isActive) {
@@ -10,13 +12,28 @@ function toggleFilterBox(menus, side, setMenus, index) {
     setMenus(newMenus);
 }
 
-function checkExistingFilters(rawFilters, filtersData) {
+
+function routeToString(route, isPrice) {
+    let string = route.replace("---", "").replace("-", " ")
+    if (isPrice && string) {
+        string = `Ate R$${string},00`
+    }
+    return string;
+}
+
+function stringToRoute(string, isPrice) {
+    let route = string ? string.toLowerCase() : "---";
+    route = route.replace("ate r$", "").replace(",00", "");
+    return route.replace(" ", "-");
+}
+
+function checkExistingFilters(rawFilters, filtersData, prices, orderByOptions) {
     const filtersToCompare = {
-        categories: filtersData.categories.map(category => category.toLowerCase()),
-        colors: filtersData.colors.map(color => color.toLowerCase()),
-        sizes: filtersData.sizes.map(size => size.toLowerCase()),
-        prices: ["Até R$30,00", "Até R$40,00", "Até R$50,00", "Até R$60,00", "Até R$70,00", "Até R$80,00"],
-        orderBy: ["menor-preco", "mais-recente", "maior-preco", "menos-recente"]
+        categories: filtersData.categories.map(category => removeSpecialCharacters(category.toLowerCase())),
+        colors: filtersData.colors.map(color => removeSpecialCharacters(color.toLowerCase())),
+        sizes: filtersData.sizes.map(size => removeSpecialCharacters(size.toLowerCase())),
+        prices: prices.map( priceDescription => removeSpecialCharacters(priceDescription) ),
+        orderBy: orderByOptions.map(orderByOption => removeSpecialCharacters(orderByOption.toLowerCase()))
     }
 
     const existingFilters = {
@@ -30,16 +47,16 @@ function checkExistingFilters(rawFilters, filtersData) {
     return existingFilters;
 }
 
-function getFiltersFromParams(params, filtersData) {
+function getFiltersFromParams(params, filtersData, prices, orderByOptions) {
     const rawFilters = {
-        searchedName: params.itemName !== "---" ? params.itemName : "",
-        categories: params.categories.replace("---", "").replace("-", " ").split("+"),
-        colors: params.colors.replace("---", "").replace("-", " ").split("+"),
-        sizes: params.sizes.replace("---", "").replace("-", " ").split("+"),
-        price: params.price !== "---" ? `Até R$${params.price},00` : "",
-        orderBy: params.orderBy !== "---" ? params.orderBy : "",
+        searchedName: routeToString(params.itemName),
+        categories: routeToString(params.categories).split("+"),
+        colors: routeToString(params.colors).split("+"),
+        sizes: routeToString(params.sizes).split("+"),
+        price: routeToString(params.price, "price"),
+        orderBy: routeToString(params.orderBy),
     };
-    return checkExistingFilters(rawFilters, filtersData);
+    return checkExistingFilters(rawFilters, filtersData, prices, orderByOptions);
 }
 
 function getArrayOfFilters(selectedFilters) {
@@ -57,8 +74,64 @@ function getArrayOfFilters(selectedFilters) {
     return arrayOfFilter.flat().filter(({ type, name }) => name !== "" && type !== "orderBy");
 }
 
+function areFiltersTheSame(updatedFilter, existingFilter) {
+    if (typeof (updatedFilter) === "string") {
+        return removeSpecialCharacters(updatedFilter).toLowerCase() === removeSpecialCharacters(existingFilter).toLowerCase();
+    }
+    if (updatedFilter.length !== existingFilter.length) {
+        return false;
+    }
+    for (let i = 0; i < updatedFilter.length; i++) {
+        if (updatedFilter[i].toLowerCase() !== existingFilter[i].toLowerCase()) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function getSearchRoute(updatedFilters, navigate) {
+
+    let routeText = `/search/`;
+    routeText += `${stringToRoute(updatedFilters.searchedName)}&`;
+    routeText += `${stringToRoute(updatedFilters.categories.join("+"))}&`;
+    routeText += `${stringToRoute(updatedFilters.colors.join("+"))}&`;
+    routeText += `${stringToRoute(updatedFilters.sizes.join("+"))}&`;
+    routeText += `${stringToRoute(updatedFilters.price, "price")}&`;
+    routeText += `${stringToRoute(updatedFilters.orderBy)}`;
+    navigate(routeText);
+}
+
+function removeFilter(existingFilters, type, name, navigate) {
+    const updatedFilters = { ...existingFilters };
+    if (typeof (updatedFilters[type]) === "string") {
+        updatedFilters[type] = "";
+    } else {
+        updatedFilters[type].splice(updatedFilters[type].indexOf(name), 1);
+    }
+    getSearchRoute(updatedFilters, navigate);
+}
+
+function updateFilters(filtersToBeApplied, existingFilters, navigate, toggleBox) {
+    const updatedFilters = { ...existingFilters };
+
+    updatedFilters[filtersToBeApplied.type] = typeof (filtersToBeApplied.names) === "string" ?
+        removeSpecialCharacters(filtersToBeApplied.names).toLowerCase() :
+        filtersToBeApplied.names.map(name => removeSpecialCharacters(name).toLowerCase())
+    ;
+    
+    if (areFiltersTheSame(filtersToBeApplied.names, existingFilters[filtersToBeApplied.type])) {
+        toggleBox();
+        return
+    }
+    
+    getSearchRoute(updatedFilters, navigate);
+}
+
 export {
     toggleFilterBox,
     getFiltersFromParams,
     getArrayOfFilters,
+    updateFilters,
+    getSearchRoute,
+    removeFilter,
 }

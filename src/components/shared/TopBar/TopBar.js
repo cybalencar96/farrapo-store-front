@@ -13,6 +13,7 @@ import {
     MenuBar,
     ProfileMenuOptions,
     ProfileMenuArrow,
+    CategoriesSubBar
 } from "./TopBarStyle";
 import { FiShoppingCart, FiMenu} from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -21,23 +22,46 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from "react";
 import UserDataContext from "../../../contexts/userDataContext";
 import BlankSpace from "../BlankSpace";
-import { userLogOut } from "./TopBarFunctions";
+import { searchForItemsByName, userLogOut, searchForNewItems, searchForItemsByCategory} from "./TopBarFunctions";
 import { TextLoading } from "../Loadings";
+import FiltersContext from "../../../contexts/filtersContext";
 
 export default function TopBar() {
     const navigate = useNavigate();
     const { userData, setUserData } = useContext(UserDataContext);
+    const { filtersData } = useContext(FiltersContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isCategorySubBarOpen, setIsCategorySubBarOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [searchBarValue, setSearchBarValue] = useState("");
     const profileMenuOptions = [
-        { title: "Minhas compras", onClick: "" },
-        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen, navigate)}},
+        { title: "Minhas compras", onClick: () => console.log("To be implemented") },
+        { title: "Sair", onClick: () => { userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen, navigate) } },
     ]
-    const categoriesOptions = ['Novidades', 'Moda Masculina', 'Moda Feminina', 'Infantil', 'Outras Categorias'];
+    const categoriesOptions = [
+        { name: 'Novidades', onClick: () => searchForNewItems(navigate) },
+        { name: 'Moda Masculina', onClick: () => searchForItemsByCategory("Moda Masculina", navigate) },
+        { name: 'Moda Feminina', onClick: () => searchForItemsByCategory("Moda Feminina", navigate) },
+        { name: 'Infantil', onClick: () => searchForItemsByCategory("Infantil", navigate) },
+        { name: 'Outras Categorias', onClick: () => setIsCategorySubBarOpen(!isCategorySubBarOpen) }
+    ];
+    const otherCategoriesNames = filtersData.categories.filter((newCategory) => !categoriesOptions.find(({ name }) => name === newCategory));
+    const otherCategoriesArray = otherCategoriesNames.map( (categoryName) => 
+    {
+        return {
+            name: categoryName,
+            onClick: () => {
+                setIsCategorySubBarOpen(false);
+                searchForItemsByCategory(categoryName, navigate);
+            }
+        }
+    }
+    )
 
     return (
         <>
-            <BlankSpace isShown={isMenuOpen} onClick={() => {if (!isLoading) { setIsMenuOpen(!isMenuOpen) }}}/>
+            <BlankSpace isShown={isCategorySubBarOpen} onClick={() => setIsCategorySubBarOpen(false) } />
+            <BlankSpace isShown={isMenuOpen} onClick={() => { if (!isLoading) { setIsMenuOpen(!isMenuOpen) } }} />
             <TopBarContainer>
                 <Title onClick={() => navigate('/')} >
                     Farrapo Store
@@ -46,12 +70,14 @@ export default function TopBar() {
                     <MenuButton>
                         <FiMenu />
                     </MenuButton>
-                    <SearchBar>
-                        <SearchInput />
-                        <SearchButton>
-                            <AiOutlineSearch />
-                        </SearchButton>
-                    </SearchBar>
+                    <form onSubmit={(e) => searchForItemsByName(e, searchBarValue, setSearchBarValue, navigate)}>
+                        <SearchBar>
+                            <SearchInput value={searchBarValue} onChange={ (e) => setSearchBarValue(e.target.value)} />
+                            <SearchButton type = "submit">
+                                <AiOutlineSearch />
+                            </SearchButton>
+                        </SearchBar>
+                    </form>
                     <Buttons>
                         <CartButton>
                             <FiShoppingCart />
@@ -75,8 +101,11 @@ export default function TopBar() {
                     </Buttons>
                 </MainBar>
                 <MenuBar>
-                    {categoriesOptions.map( (option, index) =>
-                        <span key = {index}> {option} </span>
+                    {categoriesOptions.map( ({name, onClick}, index) =>
+                        <span
+                            key={index}
+                            onClick = {onClick}
+                        > {name} </span>
                     )}
                 </MenuBar>
             </TopBarContainer>
@@ -90,7 +119,16 @@ export default function TopBar() {
                         ))
                     }
                 </ProfileMenuOptions>
-                : ""}
+                : ""
+            }
+            <CategoriesSubBar isShown={isCategorySubBarOpen} >
+                {otherCategoriesArray.map( ({name, onClick}, index) =>
+                    <span
+                        key={index}
+                        onClick = {onClick}
+                    > {name} </span>
+                )}
+            </CategoriesSubBar>
         </>
     );
 }
