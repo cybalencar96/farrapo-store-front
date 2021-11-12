@@ -56,7 +56,7 @@ export default function TopBar() {
                         <CartButton>
                             <FiShoppingCart />
                             <CartNumber>
-                                0
+                                {userData.cart.length ? userData.cart.length : ''}
                             </CartNumber>
                         </CartButton>
                         {userData.name ?

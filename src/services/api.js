@@ -52,6 +52,11 @@ function getItems(filters = {}) {
     return axios.get(`/items?${query}`)
 }
 
+function addItemToCart (body) {
+    console.log(body)
+    return axios.post(`/items/${body.itemId}/cart`, body)
+}
+
 const api = {
     signup,
     signin,
@@ -59,6 +64,7 @@ const api = {
     getItem,
     getItems,
     logout,
+    addItemToCart,
 }
 
 export default api;
