@@ -29,12 +29,13 @@ function LoadingHomePage() {
 
 function LoadingItem() {
     return (
-        <HomepageLoadingContainer homepage = {true}>
+        <LoadingItemContainer homepage = {true}>
             {Loading('TailSpin', '#08B2AE', '200px', '200px')}
             <LoadingTitle> Carregando... </LoadingTitle>
-        </HomepageLoadingContainer>
+        </LoadingItemContainer>
     )
 }
+
 
 const PageLoadingContainer = styled.main`
     width: 100vw;
@@ -54,6 +55,15 @@ const LoadingTitle = styled.span`
     display: inline-block;
     margin-top: 100px;
     color: #08B2AE;
+`
+
+const LoadingItemContainer = styled.div`
+    width: 100vw;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
 
 export {

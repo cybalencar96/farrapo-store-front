@@ -49,7 +49,6 @@ export default function ItemPage() {
                 console.log(err)
                 sendErrorAlert('Item not found')
                 navigate('/')
-
             });
 
  
