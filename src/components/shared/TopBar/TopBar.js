@@ -31,7 +31,7 @@ export default function TopBar() {
     const [isLoading, setIsLoading] = useState(false);
     const profileMenuOptions = [
         { title: "Minhas compras", onClick: "" },
-        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen)}},
+        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen, navigate)}},
     ]
     const categoriesOptions = ['Novidades', 'Moda Masculina', 'Moda Feminina', 'Infantil', 'Outras Categorias'];
 

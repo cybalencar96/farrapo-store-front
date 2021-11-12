@@ -1,7 +1,7 @@
 import api from "../../../services/api";
 import {sendErrorAlert} from "../../../utils/SweetAlert";
 
-function userLogOut(token, setIsLoading, setUserData, setIsMenuOpen ) {
+function userLogOut(token, setIsLoading, setUserData, setIsMenuOpen, navigate) {
     setIsLoading(true);
     api.logout(token)
     .then(res => {
@@ -12,8 +12,9 @@ function userLogOut(token, setIsLoading, setUserData, setIsMenuOpen ) {
             token: "",
             image: ""
         });
-        setIsMenuOpen(false)
+        setIsMenuOpen(false);
         setIsLoading(false);
+        navigate("/");
     })
     .catch(err => {
         setIsLoading(false);

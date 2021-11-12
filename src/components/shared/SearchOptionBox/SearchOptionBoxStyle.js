@@ -1,25 +1,6 @@
 import styled from "styled-components";
-
 import { IoMdClose } from "react-icons/io";
 
-const SearchItemsContainer = styled.main`
-    width: 100%;
-    height: 100vh;
-    padding: 100px max(calc((100vw - 1300px) /2 ), 20px) 0px;
-`;
-
-const FiltersBar = styled.nav`
-    width: 100%;
-    height: 70px;
-    border-bottom: 1px solid #38C2BF;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    & div {
-        display: flex;
-        align-items: center;
-    }
-`
 const SingleFilterBox = styled.div`
     margin-left: 30px;
     position: relative;
@@ -62,6 +43,7 @@ const SingleUsedFilter = styled.div`
     font-size: 12px;
     color: #08B2AE;
     border: 1px solid #08B2AE;
+    text-transform: lowercase;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -181,6 +163,7 @@ const OptionsBox = styled.div`
         color: #08B2AE;
         margin-bottom: 20px;
         white-space: nowrap;
+        display: flex;
         & input {
             margin-right: 8px;
             cursor: pointer;
@@ -205,8 +188,6 @@ const ApplyButton = styled.button`
 `;
 
 export {
-    SearchItemsContainer,
-    FiltersBar,
     SingleFilterBox,
     ClosedFilterBox,
     UserFiltersBar,
