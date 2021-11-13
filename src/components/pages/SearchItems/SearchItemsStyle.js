@@ -73,6 +73,16 @@ const SingleUsedFilter = styled.div`
     }
 `;
 
+const ClearAllFilters = styled.span`
+    margin-left: 24px;
+    font-size: 16px;
+    color: #08B2AE;
+    cursor: pointer;
+    text-decoration: underline;
+    text-transform: lowercase;
+
+`;
+
 const CloseButton = styled(IoMdClose)`
     font-size: 14px;
     margin-left: 6px;
@@ -221,4 +231,5 @@ export {
     ItemSize,
     OptionsBox,
     ApplyButton,
+    ClearAllFilters,
 }

@@ -10,6 +10,7 @@ import {
     ItemTitle,
     ItemPrice,
     ItemSize,
+    ClearAllFilters,
 } from "./SearchItemsStyle";
 import { LoadingHomePage as LoadingSearchPage } from "../../shared/Loadings";
 import { toggleFilterBox, getFiltersFromParams, getArrayOfFilters, removeFilter, getSearchRoute } from "./SearchItemsFunction";
@@ -36,6 +37,7 @@ export default function SearchItems() {
             setIsLoading(true);
             api.getSearchItems(getSearchRoute(selectedFilters))
                 .then(res => {
+                    window.scrollTo(0, 0);
                     setItems(res.data);
                     setIsLoading(false);
                 });
@@ -83,6 +85,9 @@ export default function SearchItems() {
                                 boxOnClick={ () => toggleFilterBox(menus, "leftSide", setMenus, index) }
                             />
                         ))}
+                        <ClearAllFilters onClick={() => navigate("/search/---&---&---&---&---&---")}>
+                            Limpar filtros
+                        </ClearAllFilters>
                     </div>
                     {menus.rightSide.map(({ title, filterType, isActive, options }, index) => (
                             <SearchOrderingBox

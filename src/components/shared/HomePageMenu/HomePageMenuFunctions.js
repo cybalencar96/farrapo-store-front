@@ -17,7 +17,7 @@ function searchForItemsByType(type, title, navigate) {
 }
 
 function searchForItemsByCategory(category, navigate) {
-    const adjustedCategory = removeSpecialCharacters(category).toLowerCase();
+    const adjustedCategory = removeSpecialCharacters(category.replace(" que você também pode gostar","")).toLowerCase();
     
     const filtersObject = {
         searchedName: "",
@@ -32,7 +32,7 @@ function searchForItemsByCategory(category, navigate) {
 }
 
 function searchForItemsByColor(color, navigate) {
-    let adjustedColor = color.replace("Que tal um pouco de ", "");
+    let adjustedColor = color.replace("Que tal um pouco de ", "").replace("Que tal um pouco mais de ", "");
     adjustedColor = removeSpecialCharacters(adjustedColor).toLowerCase();
     
     const filtersObject = {
