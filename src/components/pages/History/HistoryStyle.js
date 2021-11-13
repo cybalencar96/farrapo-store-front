@@ -8,6 +8,24 @@ const HistoryContainer = styled.main`
     flex-direction: column;
     align-items: center;
     gap: 50px;
+
+    & .empty {
+        width: 100%;
+        height: calc(100vh - 180px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 100px;
+        color:#38C2BF;
+        gap: 20px;
+    }
+
+    & .empty span{
+        font-size: 30px;
+        color: black;
+    }
+
 `
 
 const HistoryList = styled.ul`

@@ -36,7 +36,7 @@ export default function TopBar() {
 
     const profileMenuOptions = [
         { title: "Minhas compras", onClick: () => navigate('/my-purchases') },
-        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen)}},
+        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setCart, setIsMenuOpen, navigate)}},
     ]
     const categoriesOptions = ['Novidades', 'Moda Masculina', 'Moda Feminina', 'Infantil', 'Outras Categorias'];
 

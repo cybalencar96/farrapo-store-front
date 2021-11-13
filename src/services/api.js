@@ -70,6 +70,13 @@ function getCartItems({ userId, visitorToken }) {
 function getPurchaseHistory(token) {
     return axios.get('/purchase-history', createConfig(token));
 }
+
+function deleteClientCart ({ userId, visitorToken }) {
+    const clientId = userId ? userId : visitorToken;
+    const clientQuery = userId ? 'userId' : 'visitorToken';
+
+    return axios.delete(`/cart?${clientQuery}=${clientId}`);
+}
 const api = {
     signup,
     signin,
@@ -81,6 +88,7 @@ const api = {
     getCartItems,
     getSession,
     getPurchaseHistory,
+    deleteClientCart,
 }
 
 export default api;

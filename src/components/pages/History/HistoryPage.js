@@ -4,6 +4,7 @@ import UserDataContext from '../../../contexts/userDataContext.js';
 import { HistoryContainer, HistoryList } from "./HistoryStyle"
 import api from '../../../services/api.js';
 import { PageLoading } from "../../shared/Loadings.js";
+import { FaGhost } from "react-icons/fa";
 
 export default function HistoryPage() {
     const { userData } = useContext(UserDataContext);
@@ -28,9 +29,11 @@ export default function HistoryPage() {
         .catch (err => console.log(err))
     }
 
-    if (pageLoading) return <PageLoading />;
+    if (pageLoading) return <PageLoading />
     return (
         <HistoryContainer>
+            {
+            purchaseHistory.length === 0 ? <div className='empty'><FaGhost /> <span>Empty history</span></div> : 
             <HistoryList>
                 {
                     purchaseHistory.map(item => (
@@ -60,6 +63,7 @@ export default function HistoryPage() {
                     ))
                 }
             </HistoryList>
+            }
         </HistoryContainer>
     )
 } 
