@@ -5,7 +5,7 @@ import styled from 'styled-components'
 function PageLoading() {
     return (
         <PageLoadingContainer>
-            {Loading('ThreeDots','white', '80px','80px')}
+            {Loading('TailSpin','#08B2AE', '150px','150px')}
         </PageLoadingContainer>
     )
 }
@@ -39,8 +39,11 @@ function LoadingItem() {
 
 const PageLoadingContainer = styled.main`
     width: 100vw;
+    margin-top: 100px;
     height: calc(100vh - 100px);
-    background-image: url('/logActions-bg.png');
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const HomepageLoadingContainer = styled.main`

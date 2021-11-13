@@ -10,33 +10,16 @@ import TopBar from "./components/shared/TopBar/TopBar";
 import SignupPage from "./components/pages/Signup/SignupPage";
 import HomePage from "./components/pages/Home/HomePage";
 import UserDataContext from "./contexts/userDataContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SigninPage from "./components/pages/Signin/SigninPage";
 import ItemPage from "./components/pages/Item/ItemPage";
 import CartContext from './contexts/cartContext.js'
-import {v4 as uuid} from 'uuid';
+import HistoryPage from "./components/pages/History/HistoryPage";
+import { getUserData, getCartData } from "./utils/localStorage.js";
 
 export default function App() {
-  const [userData, setUserData] = useState({
-    userId: "", name: "", email: "", image: "", token: "",
-    visitorToken: uuid()
-  });
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
-      const localUserData = JSON.parse(localStorage.getItem('farrapo'));
-      const localCartData = JSON.parse(localStorage.getItem('farrapo-cart'));
-
-      if (localUserData) {
-          setUserData(localUserData)
-      } else {
-          localStorage.setItem('farrapo',JSON.stringify(userData))
-      }
-
-      if (localCartData) {
-          setCart(localCartData)
-      }
-  }, [])
+  const [userData, setUserData] = useState(() => getUserData());
+  const [cart, setCart] = useState(() => getCartData());
 
   return (
     <BrowserRouter>
@@ -50,6 +33,7 @@ export default function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/items/:id" element={<ItemPage />} />
+          <Route path="/my-purchases" element={<HistoryPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </CartContext.Provider>

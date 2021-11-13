@@ -25,7 +25,6 @@ import { userLogOut } from "./TopBarFunctions";
 import { TextLoading } from "../Loadings";
 import CartContext from '../../../contexts/cartContext';
 import api from "../../../services/api";
-import {v4 as uuid} from 'uuid';
 
 export default function TopBar() {
     const navigate = useNavigate();
@@ -36,8 +35,8 @@ export default function TopBar() {
 
 
     const profileMenuOptions = [
-        { title: "Minhas compras", onClick: "" },
-        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen)}},
+        { title: "Minhas compras", onClick: () => navigate('/my-purchases') },
+        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setCart, setIsMenuOpen, navigate)}},
     ]
     const categoriesOptions = ['Novidades', 'Moda Masculina', 'Moda Feminina', 'Infantil', 'Outras Categorias'];
 

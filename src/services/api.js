@@ -19,6 +19,10 @@ function signin(body) {
     return axios.post('/signin', body);
 }
 
+function getSession(token) {
+    return axios.get('/user', createConfig(token));
+}
+
 function logout(token) {
     return axios.post('/logout', "", createConfig(token));
 }
@@ -63,6 +67,16 @@ function getCartItems({ userId, visitorToken }) {
     return axios.get(`/cart?${clientQuery}=${clientId}`);
 }
 
+function getPurchaseHistory(token) {
+    return axios.get('/purchase-history', createConfig(token));
+}
+
+function deleteClientCart ({ userId, visitorToken }) {
+    const clientId = userId ? userId : visitorToken;
+    const clientQuery = userId ? 'userId' : 'visitorToken';
+
+    return axios.delete(`/cart?${clientQuery}=${clientId}`);
+}
 const api = {
     signup,
     signin,
@@ -71,7 +85,10 @@ const api = {
     getItems,
     logout,
     addItemToCart,
-    getCartItems
+    getCartItems,
+    getSession,
+    getPurchaseHistory,
+    deleteClientCart,
 }
 
 export default api;
