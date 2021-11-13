@@ -2,25 +2,27 @@ import styled from 'styled-components'
 
 const HistoryContainer = styled.main`
     margin-top: 100px;
-    padding: 20px 20px;
+    padding: 40px 20px;
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 50px;
 `
 
 const HistoryList = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 120px;
 
     & li {
         display: flex;
         align-items: center;
         gap: 20px;
     }
+
     & .left-side {
-        width: 200px;
+        width: 300px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -30,11 +32,14 @@ const HistoryList = styled.ul`
     & .left-side img {
         border-radius: 5px;
         width: 100%;
+        min-width: 300px;
     }
 
     & .right-side {
+        width: 50%;
         display: flex;
         flex-direction: column;
+        gap: 20px;
     }
 
     & .right-side .categories {
@@ -58,7 +63,7 @@ const HistoryList = styled.ul`
     & .right-side .size-container {
         width: 100%;
         height: 70px;
-        margin-top: 20px;
+        margin: 20px 0;
 
         display: flex;
         flex-direction: column;
@@ -85,28 +90,6 @@ const HistoryList = styled.ul`
 
     & .right-side .description {
         font-size: 19px;
-    }
-
-    @media (max-width: 900px) {
-        flex-direction: column;
-        gap: 100px;
-        
-        & .left-side {
-            width: auto;
-            height: auto;
-            margin: 0 auto;
-        }
-
-        & .left-side img {
-            width: 70%;
-        }
-
-        & .right-side {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
     }
 `
 

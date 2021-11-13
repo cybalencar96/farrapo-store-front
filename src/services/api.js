@@ -67,6 +67,9 @@ function getCartItems({ userId, visitorToken }) {
     return axios.get(`/cart?${clientQuery}=${clientId}`);
 }
 
+function getPurchaseHistory(token) {
+    return axios.get('/purchase-history', createConfig(token));
+}
 const api = {
     signup,
     signin,
@@ -77,6 +80,7 @@ const api = {
     addItemToCart,
     getCartItems,
     getSession,
+    getPurchaseHistory,
 }
 
 export default api;

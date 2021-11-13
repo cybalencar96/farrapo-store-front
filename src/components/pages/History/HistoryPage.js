@@ -1,14 +1,13 @@
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserDataContext from '../../../contexts/userDataContext.js';
-import CartContext from '../../../contexts/cartContext.js';
 import { HistoryContainer, HistoryList } from "./HistoryStyle"
 import api from '../../../services/api.js';
-import { sendErrorAlert } from "../../../utils/SweetAlert.js";
 import { PageLoading } from "../../shared/Loadings.js";
+
 export default function HistoryPage() {
     const { userData } = useContext(UserDataContext);
-    const { cart, setCart } = useContext(CartContext);
+    const [purchaseHistory, setPurchaseHistory] = useState('')
     const navigate = useNavigate();
     const [pageLoading, setPageLoading] = useState(true);
 
@@ -21,10 +20,12 @@ export default function HistoryPage() {
     },[])
 
     function renderCart() {
-        api.getCartItems({ userId: userData.userId })
-        .then(resp => {
-            setCart(resp.data)
+        api.getPurchaseHistory(userData.token)
+        .then(res => {
+            setPurchaseHistory(res.data)
+            setPageLoading(false)
         })
+        .catch (err => console.log(err))
     }
 
     if (pageLoading) return <PageLoading />;
@@ -32,25 +33,32 @@ export default function HistoryPage() {
         <HistoryContainer>
             <HistoryList>
                 {
-                    cart.map(cartItem => (
+                    purchaseHistory.map(item => (
                         <li>
                             <div className='left-side'>
-                                <img src={cartItem.imageUrl} alt={cartItem.itemName}/>
+                                <img src={item.image} alt={item.name}/>
                             </div>
 
                             <div className='right-side'>
-                                <h2 className='item-name'>{cartItem.itemName}</h2>
-                                <p className='price'>R$ {cartItem.price}</p>
-                                <div className='size-container'>
-                                    tamanho
-                                    <p className='size'>{cartItem.size}</p>
+                                <div>
+                                    {
+                                        item.categories.map(categorie =>  <span className='categories'>{categorie} / </span>)
+                                    }
+                                <span className='categories'>{item.colorName} / </span>
                                 </div>
+                                <h2 className='item-name'>{item.name}</h2>
+                                <p className='price'>R$ {item.price}</p>
+                                <p className='size-container'>Comprado em {new Date(item.date).toLocaleString()}</p>
+                               
+                                <p className='description'>
+                                    <span>Descrição</span>
+                                    {item.description}
+                                </p>
+                                <p className='size'>{item.sizeName !== 'N/A' ? `tamanho ${item.sizeName}` : ''}</p>
                             </div>
                         </li>
                     ))
                 }
-                
-                
             </HistoryList>
         </HistoryContainer>
     )
