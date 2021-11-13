@@ -19,6 +19,10 @@ function signin(body) {
     return axios.post('/signin', body);
 }
 
+function getSession(token) {
+    return axios.get('/user', createConfig(token));
+}
+
 function logout(token) {
     return axios.post('/logout', "", createConfig(token));
 }
@@ -71,7 +75,8 @@ const api = {
     getItems,
     logout,
     addItemToCart,
-    getCartItems
+    getCartItems,
+    getSession,
 }
 
 export default api;
