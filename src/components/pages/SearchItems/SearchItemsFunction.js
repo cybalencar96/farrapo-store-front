@@ -21,7 +21,7 @@ function routeToString(route, isPrice) {
     return string;
 }
 
-function stringToRoute(string, isPrice) {
+function stringToRoute(string) {
     let route = string ? string.toLowerCase() : "---";
     route = route.replace("ate r$", "").replace(",00", "");
     return route.replace(" ", "-");
@@ -96,10 +96,14 @@ function getSearchRoute(updatedFilters, navigate) {
     routeText += `${stringToRoute(updatedFilters.categories.join("+"))}&`;
     routeText += `${stringToRoute(updatedFilters.colors.join("+"))}&`;
     routeText += `${stringToRoute(updatedFilters.sizes.join("+"))}&`;
-    routeText += `${stringToRoute(updatedFilters.price, "price")}&`;
+    routeText += `${stringToRoute(updatedFilters.price)}&`;
     routeText += `${stringToRoute(updatedFilters.orderBy)}`;
-    navigate(routeText);
-}
+    if (navigate) {
+        return navigate(routeText);
+    }
+
+    return routeText
+    }
 
 function removeFilter(existingFilters, type, name, navigate) {
     const updatedFilters = { ...existingFilters };

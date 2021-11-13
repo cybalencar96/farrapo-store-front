@@ -28,10 +28,11 @@ export default function HomePage() {
 
     return (
         <HomeContainer>
-            {menus.map( ({title, forwardMessage, itens}, index) => (
+            {menus.map( ({title, forwardMessage, type, itens}, index) => (
                 <Menu
                     key={index}
                     title={title}
+                    type={type}
                     forwardMessage={forwardMessage}
                     itens = {itens}
                 />

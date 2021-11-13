@@ -10,17 +10,19 @@ import {
     ScrollLeftButton,
     ScrollRightButton,
 } from "./HomePageMenuStyle";
-import { scrollHorizontally } from "./HomePageMenuFunctions";
+import { scrollHorizontally, searchForItemsByType } from "./HomePageMenuFunctions";
 import { numberToCurrency } from "../../../utils/stringsUtils";
 
-export default function Menu({title, forwardMessage, itens}) {
+export default function Menu({title, forwardMessage, type, itens}) {
     const divMenuRef = useRef();
     const navigate = useNavigate();
     return (
         <MenuContainer>
             <MenuTopBar>
                 {title}
-                <button> {forwardMessage} </button>
+                <button
+                    onClick = {() => searchForItemsByType(type, title, navigate)}
+                > {forwardMessage} </button>
             </MenuTopBar>
             <ScrollLeftButton onClick={ (e) => scrollHorizontally(e, divMenuRef, "left", 220) }/>
             <ItemBoxes ref={divMenuRef}>

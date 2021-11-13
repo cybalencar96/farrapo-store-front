@@ -12,10 +12,11 @@ import {
     ItemSize,
 } from "./SearchItemsStyle";
 import { LoadingHomePage as LoadingSearchPage } from "../../shared/Loadings";
-import { toggleFilterBox, getFiltersFromParams, getArrayOfFilters, removeFilter } from "./SearchItemsFunction";
+import { toggleFilterBox, getFiltersFromParams, getArrayOfFilters, removeFilter, getSearchRoute } from "./SearchItemsFunction";
 import { useContext, useEffect, useState } from "react";
 import { SearchFilterBox, SearchOrderingBox } from "../../shared/SearchOptionBox/SearchOptionBox";
 import FiltersContext from "../../../contexts/filtersContext";
+import api from "../../../services/api";
 
 export default function SearchItems() {
     const { filtersData } = useContext(FiltersContext);
@@ -28,22 +29,24 @@ export default function SearchItems() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Mah oie!")
-        setMenus({
-        leftSide: [
-            { title: "Categorias", filterType: "categories", buttonType:"check", isActive: false, options: filtersData.categories, },
-            { title: "Cores", filterType: "colors", buttonType:"check", isActive: false, options: filtersData.colors,},
-            { title: "Tamanhos", filterType: "sizes", buttonType:"check", isActive: false, options: filtersData.sizes,},
-            { title: "Preço", filterType: "price", buttonType:"radio", isActive: false, options: prices,},
-        ],
-        rightSide: [{
-            title: "Ordenar por",
-            filterType: "orderBy",
-            isActive: false,
-            options: ["Menor preço", "Mais recente", "Maior preço", "Menos recente"],
-            selectedOption: selectedFilters.orderBy
-        }]
-    })
+        if (filtersData.isUpdated) {
+            api.getSearchItems(getSearchRoute(selectedFilters))
+            setMenus({
+                leftSide: [
+                    { title: "Categorias", filterType: "categories", buttonType:"check", isActive: false, options: filtersData.categories, },
+                    { title: "Cores", filterType: "colors", buttonType:"check", isActive: false, options: filtersData.colors,},
+                    { title: "Tamanhos", filterType: "sizes", buttonType:"check", isActive: false, options: filtersData.sizes,},
+                    { title: "Preço", filterType: "price", buttonType:"radio", isActive: false, options: prices,},
+                ],
+                rightSide: [{
+                    title: "Ordenar por",
+                    filterType: "orderBy",
+                    isActive: false,
+                    options: ["Menor preço", "Mais recente", "Maior preço", "Menos recente"],
+                    selectedOption: selectedFilters.orderBy
+                }]
+            })
+        }
     },[filtersData, navigate])
 
     if (menus.leftSide[0]?.options.length === 0) {

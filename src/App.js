@@ -17,13 +17,14 @@ import ItemPage from "./components/pages/Item/ItemPage";
 
 export default function App() {
   const [userData, setUserData] = useState({ id: "", name: "", email: "", image: "", token: "", cart: [] });
-  const [filtersData, setFiltersData] = useState({ categories: [], colors: [], sizes: [] })
+  const [filtersData, setFiltersData] = useState({ categories: [], colors: [], sizes: [], isUpdated: false})
   
   useEffect(() => {
     setFiltersData({
       categories: ["Moda Feminina", "Moda Masculina", "Infantil", "Moda de Praia", "Acessórios", "Calçados", "Camisas", "Calças"],
       colors: ["Branco", "Preto", "Azul", "Verde", "Marrom"],
       sizes: ["P", "M", "G", "36", "37", "38"],
+      isUpdated: true
     })
   }, []);
 
