@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const HistoryContainer = styled.main`
     margin-top: 100px;
-    padding: 40px 20px;
+    padding: 0 20px;
 
     display: flex;
     flex-direction: column;
@@ -31,12 +31,16 @@ const HistoryContainer = styled.main`
 const HistoryList = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    width: 100%;
 
     & li {
+        width: 100%;
+        height: calc(100vh - 100px);
         display: flex;
         align-items: center;
         gap: 20px;
+        padding: 20px;
+        position: relative;
     }
 
     & .left-side {
@@ -108,6 +112,27 @@ const HistoryList = styled.ul`
 
     & .right-side .description {
         font-size: 19px;
+    }
+
+    & .arrow-next {
+        position: absolute;
+        width: calc(100% - 40px);
+        font-size: 40px;
+        color:#38C2BF;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+    }
+
+    & .arrow-next.down {
+        bottom: 15px;
+    }
+    & .arrow-next.up {
+        top: 15px;
+    }
+
+    & .arrow-next:hover {
+        background-color: rgba(200,200,200, 0.3)
     }
 `
 
