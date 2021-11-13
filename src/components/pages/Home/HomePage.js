@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { LoadingHomePage } from '../../shared/Loadings';
 import UserDataContext from '../../../contexts/userDataContext';
-
+import Swal from 'sweetalert2';
 export default function HomePage() {
     const { userData, setUserData } = useContext(UserDataContext);
     
