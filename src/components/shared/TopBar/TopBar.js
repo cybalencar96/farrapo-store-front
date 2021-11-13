@@ -13,7 +13,9 @@ import {
     MenuBar,
     ProfileMenuOptions,
     ProfileMenuArrow,
-    CategoriesSubBar
+    CategoriesSubBar,
+    SideMenu,
+    LoginSideBarOptions
 } from "./TopBarStyle";
 import { FiShoppingCart, FiMenu} from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -34,29 +36,36 @@ export default function TopBar() {
     const [isCategorySubBarOpen, setIsCategorySubBarOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [searchBarValue, setSearchBarValue] = useState("");
+    const visitorsMobileOptions = [
+        {title: "Entre", onClick: () =>closeMenusAndNavigate( () => navigate("/signin"))},
+        {title: "Cadastre-se", onClick: () =>closeMenusAndNavigate( () => navigate("/signup"))}
+    ]
     const profileMenuOptions = [
         { title: "Minhas compras", onClick: () => console.log("To be implemented") },
         { title: "Sair", onClick: () => { userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen, navigate) } },
     ]
     const categoriesOptions = [
-        { name: 'Novidades', onClick: () => searchForNewItems(navigate) },
-        { name: 'Moda Masculina', onClick: () => searchForItemsByCategory("Moda Masculina", navigate) },
-        { name: 'Moda Feminina', onClick: () => searchForItemsByCategory("Moda Feminina", navigate) },
-        { name: 'Infantil', onClick: () => searchForItemsByCategory("Infantil", navigate) },
-        { name: 'Outras Categorias', onClick: () => setIsCategorySubBarOpen(!isCategorySubBarOpen) }
+        { name: 'Novidades', onClick: () =>closeMenusAndNavigate( () => searchForNewItems(navigate)) },
+        { name: 'Moda Masculina', onClick: () =>closeMenusAndNavigate( () => searchForItemsByCategory("Moda Masculina", navigate)) },
+        { name: 'Moda Feminina', onClick: () =>closeMenusAndNavigate( () => searchForItemsByCategory("Moda Feminina", navigate)) },
+        { name: 'Infantil', onClick: () =>closeMenusAndNavigate( () => searchForItemsByCategory("Infantil", navigate)) },
+        { name: 'Outras Categorias', onClick: () =>closeMenusAndNavigate( () => setIsCategorySubBarOpen(!isCategorySubBarOpen)) }
     ];
     const otherCategoriesNames = filtersData.categories.filter((newCategory) => !categoriesOptions.find(({ name }) => name === newCategory));
     const otherCategoriesArray = otherCategoriesNames.map( (categoryName) => 
     {
         return {
             name: categoryName,
-            onClick: () => {
-                setIsCategorySubBarOpen(false);
-                searchForItemsByCategory(categoryName, navigate);
-            }
+            onClick: () => {closeMenusAndNavigate( () => searchForItemsByCategory(categoryName, navigate))}
         }
     }
     )
+
+    function closeMenusAndNavigate(searchAndNavigate) {
+        setIsMenuOpen(false)
+        setIsCategorySubBarOpen(false);
+        searchAndNavigate();
+    }
 
     return (
         <>
@@ -67,7 +76,7 @@ export default function TopBar() {
                     Farrapo Store
                 </Title>
                 <MainBar>
-                    <MenuButton>
+                    <MenuButton onClick={() => setIsCategorySubBarOpen(true)}>
                         <FiMenu />
                     </MenuButton>
                     <form onSubmit={(e) => searchForItemsByName(e, searchBarValue, setSearchBarValue, navigate)}>
@@ -129,6 +138,29 @@ export default function TopBar() {
                     > {name} </span>
                 )}
             </CategoriesSubBar>
+            <SideMenu isShown={isCategorySubBarOpen}>
+                {
+                    categoriesOptions.slice(0, 4).concat(otherCategoriesArray).map(({name, onClick}) => (
+                        <span onClick={onClick} > {name} </span>
+                    ))
+                }
+                <LoginSideBarOptions>
+                    {userData.name ?
+                        profileMenuOptions.map(({ title, onClick }) => (
+                            <span onClick={onClick}>
+                                {title}
+                            </span>
+                        ))
+                        :
+                        visitorsMobileOptions.map(({ title, onClick }) => (
+                            <span onClick={onClick}>
+                                {title}
+                            </span>
+                        ))
+                    }
+
+                </LoginSideBarOptions>
+            </SideMenu>
         </>
     );
 }

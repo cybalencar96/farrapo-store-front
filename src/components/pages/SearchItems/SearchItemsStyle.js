@@ -6,6 +6,7 @@ const SearchItemsContainer = styled.main`
     width: 100%;
     height: 100vh;
     padding: 100px max(calc((100vw - 1300px) /2 ), 20px) 0px;
+    white-space: nowrap;
 `;
 
 const FiltersBar = styled.nav`
@@ -15,36 +16,28 @@ const FiltersBar = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     & div {
         display: flex;
         align-items: center;
     }
+    @media(max-width: 950px) {
+        padding: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: max-content;
+        & > div {
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    @media(max-width: 600px) {
+        & > div {
+            flex-direction: column;
+        }
+    }
 `
-const SingleFilterBox = styled.div`
-    margin-left: 30px;
-    position: relative;
-    &:first-of-type{
-        margin-left: 0px;
-    }
-`;
-
-const ClosedFilterBox = styled.div`
-    height: 30px;
-    padding: 0px 10px;
-    border: 1px solid #38C2BF;
-    color: #08B2AE;
-    cursor: pointer;
-    background-color: ${ ({ isActive }) => isActive ? "rgba(56,194,191,0.35)" : "#FFFFFF"};
-    display: flex;
-    align-items: center;
-    text-transform: lowercase;
-    transition: all 250ms;
-    & svg {
-        margin-left: 10px;
-        transform: ${ ({ isActive }) => isActive ? "rotate(180deg)" : "rotate(0deg)"};
-        transition: all 250ms;
-    }
-`;
 
 const UserFiltersBar = styled.div`
     width: 100%;
@@ -53,6 +46,9 @@ const UserFiltersBar = styled.div`
     display: flex;
     align-items: center;
     overflow-x: hidden;
+    @media(max-width: 600px) {
+        overflow-x: scroll;
+    }
 `;
 
 const SingleUsedFilter = styled.div`
@@ -74,13 +70,24 @@ const SingleUsedFilter = styled.div`
 `;
 
 const ClearAllFilters = styled.span`
-    margin-left: 24px;
+    margin-left: 30px;
     font-size: 16px;
     color: #08B2AE;
     cursor: pointer;
     text-decoration: underline;
     text-transform: lowercase;
+    @media(max-width: 950px) {
+        margin: 0px 30px 15px;
+    }
+`;
 
+const NoItemsMessage = styled.div`
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 30px;
+    color: #08B2AE;
+    cursor: pointer;
 `;
 
 const CloseButton = styled(IoMdClose)`
@@ -96,11 +103,16 @@ const ItemBoxes = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 40px; 
+    margin-bottom: 40px;
+    @media(max-width: 950px) {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
 `;
 
 const ItemBox = styled.div`
-    min-width: 200px;
+    width: 200px;
     height: 280px;
     margin-right: 24px;
     margin-bottom: 16px;
@@ -122,7 +134,7 @@ const ItemBox = styled.div`
     }
 
     @media(max-width: 600px) {
-        min-width: calc( 100vw - 130px );
+        width: calc( 100vw - 130px );
         height: calc( (100vw - 130px) * 1.4);
         & img {
             height: calc( 100vw - 180px );
@@ -219,8 +231,6 @@ const ApplyButton = styled.button`
 export {
     SearchItemsContainer,
     FiltersBar,
-    SingleFilterBox,
-    ClosedFilterBox,
     UserFiltersBar,
     SingleUsedFilter,
     CloseButton,
@@ -231,5 +241,6 @@ export {
     ItemSize,
     OptionsBox,
     ApplyButton,
+    NoItemsMessage,
     ClearAllFilters,
 }

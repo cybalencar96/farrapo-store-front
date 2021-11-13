@@ -11,6 +11,7 @@ import {
     ItemPrice,
     ItemSize,
     ClearAllFilters,
+    NoItemsMessage,
 } from "./SearchItemsStyle";
 import { LoadingHomePage as LoadingSearchPage } from "../../shared/Loadings";
 import { toggleFilterBox, getFiltersFromParams, getArrayOfFilters, removeFilter, getSearchRoute } from "./SearchItemsFunction";
@@ -26,7 +27,7 @@ export default function SearchItems() {
     const prices = ["Até R$30,00", "Até R$40,00", "Até R$50,00", "Até R$60,00", "Até R$70,00", "Até R$80,00"];
     const orderByOptions = ["Menor preço", "Mais recente", "Maior preço", "Menos recente"];
     const [isLoading, setIsLoading] = useState(false);
-    const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
+    const [items, setItems] = useState("")
     const [menus, setMenus] = useState({ leftSide: [], rightSide: [] });
     const selectedFilters = getFiltersFromParams(useParams(), filtersData, prices, orderByOptions);
     const arrayOfFilters = getArrayOfFilters(selectedFilters);
@@ -59,7 +60,7 @@ export default function SearchItems() {
         }
     },[filtersData, navigate])
 
-    if (menus.leftSide[0]?.options.length === 0) {
+    if (menus.leftSide[0]?.options.length === 0 || !items) {
         return (
             <SearchItemsContainer>
                 <LoadingSearchPage />
@@ -111,14 +112,19 @@ export default function SearchItems() {
                     )) }
                 </UserFiltersBar>
                 <ItemBoxes>
-                    {items.map(({name, image, price, size}, index) => (
-                    <ItemBox key = {"SearchItemBox" + index} onClick={() => console.log("Teste")}>
-                        <ItemTitle> {name} </ItemTitle>
-                        <img alt={name} src={image} />
-                        <ItemPrice> {numberToCurrency(price)} </ItemPrice>
-                        <ItemSize> {size} </ItemSize>
-                    </ItemBox>
-                    ))}
+                    { items.length > 0 ?
+                        items.map(({ name, image, price, size }, index) => (
+                            <ItemBox key = {"SearchItemBox" + index} onClick={() => console.log("Teste")}>
+                                <ItemTitle> {name} </ItemTitle>
+                                <img alt={name} src={image} />
+                                <ItemPrice> {numberToCurrency(price)} </ItemPrice>
+                                <ItemSize> {size} </ItemSize>
+                            </ItemBox>
+                        )) :
+                        <NoItemsMessage>
+                            Não encontramos nenhum item para estes filtros :/
+                        </NoItemsMessage>
+                    }
                 </ItemBoxes>
                 </SearchItemsContainer>
         </>

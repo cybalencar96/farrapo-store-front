@@ -70,7 +70,6 @@ function searchForNewItems(navigate) {
 }
 
 
-
 export {
     userLogOut,
     searchForItemsByName,

@@ -233,6 +233,52 @@ const CategoriesSubBar = styled.div`
             text-decoration: underline;
         }
     }
+    @media(max-width: 950px) {
+        display: none;
+    }
+`;
+
+const SideMenu = styled.section`
+    width: 300px;
+    height: calc(100vh - 100px);
+    border-right: 1px solid #CDCDCD;
+    position: fixed;
+    top: 100px;
+    left: ${ ({ isShown }) => isShown ? "0px" : "-300px"};
+    z-index: 5;
+    background-color: #08B2AE;
+    color: #FFFFFF;
+    font-size: 24px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    cursor: pointer;
+    transition: left 300ms;
+
+    & span {
+        margin-top: 16px;
+    }
+
+    @media(max-width: 950px) {
+        display: flex;
+    }
+`;
+
+const LoginSideBarOptions = styled.div`
+    width: 100%;
+    margin-top: 40px;
+    font-size: 18px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+
+    @media(max-width: 600px) {
+        display: flex;
+    }
+
+
 `;
 
 export {
@@ -251,4 +297,6 @@ export {
     ProfileMenuOptions,
     ProfileMenuArrow,
     CategoriesSubBar,
+    SideMenu,
+    LoginSideBarOptions,
 };
