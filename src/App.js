@@ -14,18 +14,17 @@ import { useEffect, useState } from "react";
 import SigninPage from "./components/pages/Signin/SigninPage";
 import SearchItems from "./components/pages/SearchItems/SearchItems";
 import ItemPage from "./components/pages/Item/ItemPage";
+import api from "./services/api";
+import { sendErrorAlert } from "./utils/SweetAlert";
 
 export default function App() {
   const [userData, setUserData] = useState({ id: "", name: "", email: "", image: "", token: "", cart: [] });
   const [filtersData, setFiltersData] = useState({ categories: [], colors: [], sizes: [], isUpdated: false})
   
   useEffect(() => {
-    setFiltersData({
-      categories: ["Moda Feminina", "Moda Masculina", "Infantil", "Moda de Praia", "Acessórios", "Calçados", "Camisas", "Calças"],
-      colors: ["Branco", "Preto", "Azul", "Verde", "Marrom"],
-      sizes: ["P", "M", "G", "36", "37", "38"],
-      isUpdated: true
-    })
+    api.getFilters()
+      .then(res => setFiltersData({ ...res.data, isUpdated: true }))
+      .catch(error => sendErrorAlert("Parece que houve um problema! tente novamente mais tarde"));
   }, []);
 
   return (

@@ -36,6 +36,10 @@ function getSearchItems(query) {
     return axios.get(query);
 }
 
+function getFilters() {
+    return axios.get('/filters');
+}
+
 function getItems(filters = {}) {
     const {
         color,
@@ -65,6 +69,7 @@ const api = {
     getItems,
     logout,
     getSearchItems,
+    getFilters,
 }
 
 export default api;
