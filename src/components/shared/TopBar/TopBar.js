@@ -53,12 +53,12 @@ export default function TopBar() {
     ];
     const otherCategoriesNames = filtersData.categories.filter((newCategory) => !categoriesOptions.find(({ name }) => name === newCategory));
     const otherCategoriesArray = otherCategoriesNames.map( (categoryName) => 
-    {
-        return {
-            name: categoryName,
-            onClick: () => {closeMenusAndNavigate( () => searchForItemsByCategory(categoryName, navigate))}
+        {
+            return {
+                name: categoryName,
+                onClick: () => {closeMenusAndNavigate( () => searchForItemsByCategory(categoryName, navigate))}
+            }
         }
-    }
     )
 
     function closeMenusAndNavigate(searchAndNavigate) {

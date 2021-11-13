@@ -113,8 +113,8 @@ export default function SearchItems() {
                 </UserFiltersBar>
                 <ItemBoxes>
                     { items.length > 0 ?
-                        items.map(({ name, image, price, size }, index) => (
-                            <ItemBox key = {"SearchItemBox" + index} onClick={() => console.log("Teste")}>
+                        items.map(({ id, name, image, price, size }, index) => (
+                            <ItemBox key = {"SearchItemBox" + index} onClick={() => navigate(`/items/${id}`)}>
                                 <ItemTitle> {name} </ItemTitle>
                                 <img alt={name} src={image} />
                                 <ItemPrice> {numberToCurrency(price)} </ItemPrice>
