@@ -134,6 +134,60 @@ const HistoryList = styled.ul`
     & .arrow-next:hover {
         background-color: rgba(200,200,200, 0.3)
     }
+
+    @media (max-width: 600px) {
+        gap: 20px;
+        & li {
+            height: auto;
+            padding-top: 20px;
+            gap: 10px;
+            justify-content: space-evenly;
+        }
+
+        & .left-side {
+            width: 100px;
+        }
+
+        & .left-side img {
+            min-width: 0;
+        }
+
+        & .right-side {
+            gap: 10px;
+        }
+
+        & .right-side .item-name {
+            font-size: 17px;
+        }
+
+        & .right-side .price {
+            font-size: 15px;
+        }
+
+        
+        & .right-side .size-container {
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        & .right-side .categories {
+            display: none;
+        }
+
+        & .right-side .size {
+            display: none;
+        }
+
+        & .right-side .description {
+            display: none;
+        }
+
+        & .arrow-next {
+            display: none;
+        }
+    }
 `
 
 export {
