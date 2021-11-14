@@ -210,6 +210,77 @@ const ProfileMenuOptions = styled.div`
     }
 `;
 
+const CategoriesSubBar = styled.div`
+    width: 180px;
+    background-color: #FFFFFF;
+    padding: 24px;
+    display: ${ ({ isShown }) => isShown ? "flex" : "none"};
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: calc((( 100% - (max(calc((100vw - 1300px) /2 ), 20px) * 2)) * 0.15 ) + max(calc((100vw - 1300px) /2 ), 20px) - 10px);
+    top: 100px;
+    z-index: 5;
+    border: 1px solid #000000;
+    border-top: none;
+    border-radius: 0px 0px 10px 10px;
+    & span {
+        font-size: 20px;
+        color: #08B2AE;
+        cursor: pointer;
+        margin-bottom: 18px;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    @media(max-width: 950px) {
+        display: none;
+    }
+`;
+
+const SideMenu = styled.section`
+    width: 300px;
+    height: calc(100vh - 100px);
+    border-right: 1px solid #CDCDCD;
+    position: fixed;
+    top: 100px;
+    left: ${ ({ isShown }) => isShown ? "0px" : "-300px"};
+    z-index: 5;
+    background-color: #08B2AE;
+    color: #FFFFFF;
+    font-size: 24px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    cursor: pointer;
+    transition: left 300ms;
+
+    & span {
+        margin-top: 16px;
+    }
+
+    @media(max-width: 950px) {
+        display: flex;
+    }
+`;
+
+const LoginSideBarOptions = styled.div`
+    width: 100%;
+    margin-top: 40px;
+    font-size: 18px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+
+    @media(max-width: 600px) {
+        display: flex;
+    }
+
+
+`;
+
 export {
     TopBarContainer,
     MainBar,
@@ -225,4 +296,7 @@ export {
     MenuBar,
     ProfileMenuOptions,
     ProfileMenuArrow,
+    CategoriesSubBar,
+    SideMenu,
+    LoginSideBarOptions,
 };

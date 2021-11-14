@@ -134,15 +134,17 @@ export default function ItemPage() {
                 <Menu
                     title={`Que tal um pouco mais de ${item.color}`}
                     forwardMessage="Me mostre mais!"
+                    type="colors"
                     itens = {menu1}
                 />
             }
             {
                 !item || !menu2 ? <LoadingItem /> :
                 <Menu
-                title={`${item.categories[0]} que você também pode gostar`}
-                forwardMessage="Me mostre mais!"
-                itens = {menu2}
+                    title={`${item.categories[0]} que você também pode gostar`}
+                    forwardMessage="Me mostre mais!"
+                    type="categories"
+                    itens = {menu2}
                 />
             }
                 

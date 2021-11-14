@@ -35,6 +35,14 @@ function getItem(itemId) {
     return axios.get(`/items/${itemId}`);
 }
 
+function getSearchItems(query) {
+    return axios.get(query);
+}
+
+function getFilters() {
+    return axios.get('/filters');
+}
+
 function getItems(filters = {}) {
     const {
         color,
@@ -84,6 +92,8 @@ const api = {
     getItem,
     getItems,
     logout,
+    getSearchItems,
+    getFilters,
     addItemToCart,
     getCartItems,
     getSession,
