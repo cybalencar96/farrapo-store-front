@@ -21,12 +21,14 @@ import { FiShoppingCart, FiMenu} from "react-icons/fi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import UserDataContext from "../../../contexts/userDataContext";
 import BlankSpace from "../BlankSpace";
 import { searchForItemsByName, userLogOut, searchForNewItems, searchForItemsByCategory} from "./TopBarFunctions";
 import { TextLoading } from "../Loadings";
 import FiltersContext from "../../../contexts/filtersContext";
+import CartContext from '../../../contexts/cartContext';
+import api from "../../../services/api";
 
 export default function TopBar() {
     const navigate = useNavigate();
@@ -36,13 +38,16 @@ export default function TopBar() {
     const [isCategorySubBarOpen, setIsCategorySubBarOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [searchBarValue, setSearchBarValue] = useState("");
+    const { cart, setCart } = useContext(CartContext);
+
     const visitorsMobileOptions = [
         {title: "Entre", onClick: () =>closeMenusAndNavigate( () => navigate("/signin"))},
         {title: "Cadastre-se", onClick: () =>closeMenusAndNavigate( () => navigate("/signup"))}
     ]
+    
     const profileMenuOptions = [
-        { title: "Minhas compras", onClick: () => console.log("To be implemented") },
-        { title: "Sair", onClick: () => { userLogOut(userData.token, setIsLoading, setUserData, setIsMenuOpen, navigate) } },
+        { title: "Minhas compras", onClick: () =>closeMenusAndNavigate(() => navigate('/my-purchases')) },
+        { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setCart, setIsMenuOpen, navigate)}},
     ]
     const categoriesOptions = [
         { name: 'Novidades', onClick: () =>closeMenusAndNavigate( () => searchForNewItems(navigate)) },
@@ -67,6 +72,28 @@ export default function TopBar() {
         searchAndNavigate();
     }
 
+    useEffect(() => {
+        if (userData.userId) {
+            api.getCartItems({ userId: userData.userId })
+                .then(res => {
+                    setCart(res.data)
+                    localStorage.setItem('farrapo-cart', JSON.stringify(res.data))
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        } else {
+            api.getCartItems({ visitorToken: userData.visitorToken })
+            .then(res => {
+                setCart(res.data)
+                localStorage.setItem('farrapo-cart', JSON.stringify(res.data))
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    },[])
+
     return (
         <>
             <BlankSpace isShown={isCategorySubBarOpen} onClick={() => setIsCategorySubBarOpen(false) } />
@@ -90,9 +117,12 @@ export default function TopBar() {
                     <Buttons>
                         <CartButton>
                             <FiShoppingCart />
-                            <CartNumber>
-                                0
-                            </CartNumber>
+                            {
+                                !cart.length ? '' :
+                                <CartNumber>
+                                    {cart.length}
+                                </CartNumber>
+                            }             
                         </CartButton>
                         {userData.name ?
                             <ProfileButton isOpened = {isMenuOpen} onClick = {() => setIsMenuOpen(!isMenuOpen)}>

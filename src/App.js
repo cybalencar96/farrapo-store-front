@@ -2,6 +2,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 import GlobalReset from "./assets/CSS Components/GlobalReset";
 import GlobalStyles from "./assets/CSS Components/GlobalStyles";
@@ -16,9 +17,13 @@ import SearchItems from "./components/pages/SearchItems/SearchItems";
 import ItemPage from "./components/pages/Item/ItemPage";
 import api from "./services/api";
 import { sendErrorAlert } from "./utils/SweetAlert";
+import CartContext from './contexts/cartContext.js'
+import HistoryPage from "./components/pages/History/HistoryPage";
+import { getUserData, getCartData } from "./utils/localStorage.js";
 
 export default function App() {
-  const [userData, setUserData] = useState({ id: "", name: "", email: "", image: "", token: "", cart: [] });
+  const [userData, setUserData] = useState(() => getUserData());
+  const [cart, setCart] = useState(() => getCartData());
   const [filtersData, setFiltersData] = useState({ categories: [], colors: [], sizes: [], isUpdated: false})
   
   useEffect(() => {
@@ -33,15 +38,18 @@ export default function App() {
     	<GlobalStyles />
       <UserDataContext.Provider value={{ userData, setUserData }}>
         <FiltersContext.Provider value = {{filtersData}}>
-          <TopBar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/signin" element={<SigninPage />} />
-            <Route path="/search/:itemName&:categories&:colors&:sizes&:price&:orderBy" element={<SearchItems />} />
-            <Route path="/items/:id" element={<ItemPage />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
+          <CartContext.Provider value={{cart, setCart}}>
+            <TopBar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/signin" element={<SigninPage />} />
+              <Route path="/search/:itemName&:categories&:colors&:sizes&:price&:orderBy" element={<SearchItems />} />
+              <Route path="/items/:id" element={<ItemPage />} />
+              <Route path="/my-purchases" element={<HistoryPage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </CartContext.Provider>
         </FiltersContext.Provider>
       </UserDataContext.Provider>
     </BrowserRouter>

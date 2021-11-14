@@ -2,21 +2,19 @@ import api from "../../../services/api";
 import { removeSpecialCharacters } from "../../../utils/stringsUtils";
 import {sendErrorAlert} from "../../../utils/SweetAlert";
 import { getSearchRoute } from "../../pages/SearchItems/SearchItemsFunction";
+import { getUserData, getCartData } from '../../../utils/localStorage.js';
 
-function userLogOut(token, setIsLoading, setUserData, setIsMenuOpen, navigate) {
+function userLogOut(token, setIsLoading, setUserData, setCart, setIsMenuOpen, navigate ) {
     setIsLoading(true);
     api.logout(token)
     .then(res => {
-        setUserData({
-            id: "",
-            name: "",
-            email: "",
-            token: "",
-            image: ""
-        });
-        setIsMenuOpen(false);
+        localStorage.removeItem('farrapo');
+        localStorage.removeItem('farrapo-cart');
+        setUserData(getUserData());
+        setCart(getCartData());
+        setIsMenuOpen(false)
         setIsLoading(false);
-        navigate("/");
+        navigate('/');
     })
     .catch(err => {
         setIsLoading(false);

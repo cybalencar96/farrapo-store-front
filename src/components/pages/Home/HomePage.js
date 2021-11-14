@@ -7,16 +7,18 @@ import UserDataContext from '../../../contexts/userDataContext';
 
 export default function HomePage() {
     const { userData } = useContext(UserDataContext);
+    
     const [menus, setMenus] = useState([]);
 
     useEffect(() => {
         setMenus([]);
+        
         api.getHomepageItens(userData.token)
             .then(resp => {
                 setMenus(resp.data);
             })
-            .catch(err => console.log(err));
-    },[userData]);
+            .catch(err => console.log(err))
+    },[]);
 
     if (menus.length === 0) {
         return (

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 function PageLoading() {
     return (
         <PageLoadingContainer>
-            {Loading('ThreeDots','white', '80px','80px')}
+            {Loading('TailSpin','#08B2AE', '150px','150px')}
         </PageLoadingContainer>
     )
 }
@@ -29,17 +29,21 @@ function LoadingHomePage() {
 
 function LoadingItem() {
     return (
-        <HomepageLoadingContainer homepage = {true}>
+        <LoadingItemContainer homepage = {true}>
             {Loading('TailSpin', '#08B2AE', '200px', '200px')}
             <LoadingTitle> Carregando... </LoadingTitle>
-        </HomepageLoadingContainer>
+        </LoadingItemContainer>
     )
 }
 
+
 const PageLoadingContainer = styled.main`
     width: 100vw;
+    margin-top: 100px;
     height: calc(100vh - 100px);
-    background-image: url('/logActions-bg.png');
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const HomepageLoadingContainer = styled.main`
@@ -54,6 +58,15 @@ const LoadingTitle = styled.span`
     display: inline-block;
     margin-top: 100px;
     color: #08B2AE;
+`
+
+const LoadingItemContainer = styled.div`
+    width: 100vw;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `
 
 export {

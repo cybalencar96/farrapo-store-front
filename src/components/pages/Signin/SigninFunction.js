@@ -9,7 +9,6 @@ function changeInputs(e, inputs, setInputs) {
     const inputPlaceholder = e.target.placeholder;
     const inputValue = e.target.value;
 
-
     if (inputPlaceholder === 'email') {
         setInputs({
             ...inputs,
@@ -25,25 +24,32 @@ function changeInputs(e, inputs, setInputs) {
 
 }
 
-function signin(e, inputs, navigate, setButtonLoading, setUserData) {
+function signin(e, inputs, navigate, setButtonLoading, setUserData, userData) {
     e.preventDefault();
     setButtonLoading(true)
 
     api.signin(inputs)
     .then(res => {
-        setUserData({
-            id: res.data.id,
+        const userLogged = {
+            userId: res.data.id,
             name: res.data.name,
             email: res.data.email,
             token: res.data.token,
-            image: res.data.image
-        })
+            image: res.data.image,
+            visitorToken: '',
+            cart: userData.cart
+        }
+
+        setUserData(userLogged);
+        localStorage.setItem('farrapo', JSON.stringify(userLogged));
+
         sendSuccessAlert();
         navigate('/');
     })
     .catch(err => {
         setButtonLoading(false)
-        sendErrorAlert(err.response.data)
+        console.log(err)
+        if (err.response) sendErrorAlert(err.response.data)
     });
 }
 
