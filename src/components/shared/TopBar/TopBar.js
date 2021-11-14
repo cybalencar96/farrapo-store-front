@@ -115,7 +115,7 @@ export default function TopBar() {
                         </SearchBar>
                     </form>
                     <Buttons>
-                        <CartButton>
+                        <CartButton onClick={() => navigate("/my-cart")}>
                             <FiShoppingCart />
                             {
                                 !cart.length ? '' :
