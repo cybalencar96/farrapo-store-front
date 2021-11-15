@@ -19,7 +19,7 @@ async function deleteItemFromCart({ userData, itemId, setIsLoading, cart, setCar
     let token;
     if (userData.visitorToken) {
         clientType = "visitor";
-        token = "teste"
+        token = userData.visitorToken;
     } else {
         clientType = "user";
         token = userData.token;
@@ -51,7 +51,7 @@ async function EmptyCart({ userData, setIsLoading, setCart }) {
     let token;
     if (userData.visitorToken) {
         clientType = "visitor";
-        token = "teste"
+        token = userData.visitorToken;
     } else {
         clientType = "user";
         token = userData.token;
@@ -80,7 +80,7 @@ function updateItemQuantity({ userData, setIsLoading, itemId, quantity, maxQty, 
     let token;
     if (userData.visitorToken) {
         clientType = "visitor";
-        token = "teste"
+        token = userData.visitorToken;
     } else {
         clientType = "user";
         token = userData.token;
