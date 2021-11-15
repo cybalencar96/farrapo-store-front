@@ -4,7 +4,7 @@ import { updateCart } from "../../../utils/localStorage";
 import api from "../../../services/api";
 
 function getTotalPrice(cart) {
-    const totalPrice =  cart.map(({ price, cartQty }) => price * cartQty).reduce((firstValue, secondValue) => firstValue + secondValue);
+    const totalPrice =  cart.map(({ price, cartQty, quantity }) => cartQty ? price * cartQty : price * quantity).reduce((firstValue, secondValue) => firstValue + secondValue);
     return numberToCurrency(totalPrice);
 }
 

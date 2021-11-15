@@ -87,7 +87,11 @@ export default function ItemPage() {
                             <p className='price'>R$ {item.price}</p>
                             <p className='qty'>{item.quantity} unidade(s)</p>
                             <div className='buy-button-container'>
-                                <button className={item.quantity ? 'iwant' : 'no-item'} onClick={(localAddItemToCartAndCheckout)}>
+                                    <button
+                                        className={item.quantity ? 'iwant' : 'no-item'}
+                                        onClick={(localAddItemToCartAndCheckout)}
+                                        disabled={item.quantity === 0}
+                                    >
                                     {item.quantity ? 'Eu quero!' : 'produto vendido'}
                                 </button>
                                 {   

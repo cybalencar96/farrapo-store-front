@@ -1,11 +1,14 @@
 import { changeInputValue, forwardUserToLogin, submitCheckout } from "./CheckoutFunctions";
 
 import { useContext, useState } from "react";
-import { CheckoutContainer, CheckoutForm, CheckoutTitle, CheckoutTopBar, FinishPurchaseButton, FormTitle, GoBackToMyCart, Input, Inputs, Label } from "./CheckoutStyle";
+import { CheckoutContainer, CheckoutForm, CheckoutTitle, CheckoutTopBar, FinishPurchaseButton, FormTitle, GoBackToMyCart, Input, Inputs, Label, TotalPrice } from "./CheckoutStyle";
 import UserDataContext from "../../../contexts/userDataContext";
 import CartContext from "../../../contexts/cartContext";
 import { useNavigate } from "react-router";
 import ItemBox from "../../shared/ItemBox/ItemBox";
+import {getTotalPrice} from "../CartPage/CartPageFunctions"
+import BlankSpace from "../../shared/BlankSpace";
+import { LoadingHomePage } from "../../shared/Loadings";
 
 export default function Checkout() {
 
@@ -13,6 +16,7 @@ export default function Checkout() {
     const { cart } = useContext(CartContext);
     const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({ name: "", cpf: "", adress: "", number: "", complement: "", city: "", state: "" });
+    const [isLoading, setIsLoading] = useState(false);
 
     const inputs = [
         { label: "Nome*", type: "text", atribute: "name", size: "large" },
@@ -26,6 +30,11 @@ export default function Checkout() {
 
     if (!cart || !cart.length) {
         navigate("/")
+        return (
+            <CheckoutContainer>
+                <LoadingHomePage />
+            </CheckoutContainer>
+        );
     }
 
     if (!userData.token) {
@@ -33,49 +42,55 @@ export default function Checkout() {
     }
 
     return (
-        <CheckoutContainer>
-            <CheckoutTopBar>
-                <CheckoutTitle>
-                    Confira seu pedido!
-                </CheckoutTitle>
-                <GoBackToMyCart onClick = {() => navigate("/my-cart")}>
-                    Voltar para o carrinho
-                </GoBackToMyCart>
-            </CheckoutTopBar>
-            {
-                cart.map(( item, index) => (
-                    <ItemBox
-                        key={`CheckoutItemBox` + index}
-                        item={item}
-                        isCheckout = {true}
-                    />
-                ))
-            }
-            <CheckoutForm onSubmit={ (e) => submitCheckout(e, inputValues)}>
-                <FormTitle>
-                    Insira seus dados de entrega
-                </FormTitle>
-                <Inputs>
-                    {
-                        inputs.map(({ label, type, atribute, size }, index) => (
-                            <div>
-                                <Label>
-                                    {label}:
-                                </Label>
-                                <Input
-                                    type={type}
-                                    size={size}
-                                    value={inputValues[atribute]}
-                                    onChange={(e) => changeInputValue(e, inputValues, setInputValues, atribute) }
-                                />
-                           </div> 
-                        ))
-                    }
-                </Inputs>
-                <FinishPurchaseButton type = "submit">
-                    Finalizar a compra
-                </FinishPurchaseButton>
-            </CheckoutForm>
-        </CheckoutContainer>
+        <>
+            <BlankSpace isShown={isLoading} isLoading={true} isTransparent={true} />
+            <CheckoutContainer>
+                <CheckoutTopBar>
+                    <CheckoutTitle>
+                        Confira seu pedido!
+                    </CheckoutTitle>
+                    <GoBackToMyCart onClick = {() => navigate("/my-cart")}>
+                        Voltar para o carrinho
+                    </GoBackToMyCart>
+                </CheckoutTopBar>
+                {
+                    cart.map(( item, index) => (
+                        <ItemBox
+                            key={`CheckoutItemBox` + index}
+                            item={item}
+                            isCheckout = {true}
+                        />
+                    ))
+                }
+                <TotalPrice>
+                    Total: {getTotalPrice(cart)}
+                </TotalPrice>
+                <CheckoutForm onSubmit={ (e) => submitCheckout(e, inputValues, cart, userData.token, navigate, setIsLoading)}>
+                    <FormTitle>
+                        Insira seus dados de entrega
+                    </FormTitle>
+                    <Inputs>
+                        {
+                            inputs.map(({ label, type, atribute, size }, index) => (
+                                <div key = {"CheckoutForm" + index}>
+                                    <Label>
+                                        {label}:
+                                    </Label>
+                                    <Input
+                                        type={type}
+                                        size={size}
+                                        value={inputValues[atribute]}
+                                        onChange={(e) => changeInputValue(e, inputValues, setInputValues, atribute) }
+                                    />
+                                </div> 
+                            ))
+                        }
+                    </Inputs>
+                    <FinishPurchaseButton type = "submit">
+                        Finalizar a compra
+                    </FinishPurchaseButton>
+                </CheckoutForm>
+                </CheckoutContainer>
+            </>
     );
 }

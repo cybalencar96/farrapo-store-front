@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 const CheckoutContainer = styled.main`
     width: 100%;
     min-height: 100vh;
@@ -45,69 +46,6 @@ const GoBackToMyCart = styled.span`
     }
 `;
 
-const CheckoutForm = styled.form`
-
-`;
-
-const Inputs = styled.div`
-    & div {
-        height: 30px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        position: relative;
-    }
-`;
-
-const FormTitle = styled.span`
-    font-size: 24px;
-    color: #08B2AE;
-    display: inline-block;
-    margin-bottom: 16px;
-`;
-
-const Input = styled.input`
-    width: ${ ({ size }) => size === "large" ? "200px" : "70px" };
-    padding-left: 10px;
-    height: 30px;
-    position: absolute;
-    border: 1px solid #08B2AE;
-    border-radius: 10px;
-    outline: none;
-    top: 0px;
-    left: 150px;
-    @media(max-width: 600px) {
-        width: ${ ({ size }) => size === "large" ? "170px" : "70px" };
-        left: 120px;
-    }
-`;
-
-const Label = styled.span`
-    font-size: 20px;
-    color: #08B2AE;
-    margin-right: 10px;
-
-    @media(max-width: 600px) {
-        font-size: 18px;
-    }
-
-`;
-
-const FinishPurchaseButton = styled.button`
-    width: 190px;
-    height: 50px;
-    font-size: 20px;
-    font-weight: 700;
-    background-color: #08B2AE;
-    margin: 10px 30px 30px;
-    border-radius: 20px;
-    color: #FFFFFF;
-    cursor: pointer;
-    &:hover {
-        filter: brightness(1.15);
-    }
-`;
-
 const TotalPrice = styled.div`
     width: 100%;
     display: flex;
@@ -123,16 +61,11 @@ const TotalPrice = styled.div`
     }
 `;
 
+
 export {
     CheckoutContainer,
     CheckoutTopBar,
     CheckoutTitle,
     GoBackToMyCart,
-    CheckoutForm,
-    FormTitle,
-    Inputs,
-    Input,
-    Label,
-    FinishPurchaseButton,
     TotalPrice,
 }

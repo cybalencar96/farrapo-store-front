@@ -1,4 +1,5 @@
-import {sendErrorAlert, sendSuccessAlert, sendWarningAlert} from "../../../utils/SweetAlert";
+import api from "../../../services/api";
+import {sendErrorAlert, sendWarningAlert} from "../../../utils/SweetAlert";
 
 async function forwardUserToLogin(navigate) {
     await sendWarningAlert("Faça login antes de seguir para Checkout!");
@@ -22,8 +23,6 @@ function areAllInputsValid(inputValues) {
         { message: "Insira um estado válido!", condition: validUFs.includes(inputValues["state"]) }
     ]
 
-    console.log((inputValues["name"]).length > 3);
-
     const error = conditions.find(({ condition }) => condition === false);
     if (error) {
         sendErrorAlert(error.message)
@@ -32,11 +31,22 @@ function areAllInputsValid(inputValues) {
     return true;
 }
 
-function submitCheckout(e, inputValues, cart) {
+function submitCheckout(e, inputValues, cart, token, navigate, setIsLoading) {
     e.preventDefault();
-    if (areAllInputsValid(inputValues)) {
-        sendSuccessAlert("Deu bom!")
+    if (!areAllInputsValid(inputValues)) {
+        return 
     }
+    setIsLoading(true);
+    api.usersCheckout(inputValues, cart, token)
+        .then(res => {
+            setIsLoading(false);
+            navigate(`/success/${res.data.token}`)
+        })
+        .catch(error => {
+            console.log(error);
+            setIsLoading(false);
+            sendErrorAlert("Parece que houve algum problema! Tente novamente mais tarde");
+        })
 }
 
 export {
