@@ -24,7 +24,15 @@ function sendConfirmAlert(title, buttonText ) {
         showCancelButton: true,
         confirmButtonText: buttonText,
         cancelButtonText: 'Cancelar',
-        timer: 2500,
+      })
+}
+
+function sendWarningAlert(html) {
+    return Swal.fire({
+        title: 'Atençao!',
+        html: html,
+        icon: 'warning',
+        timer: 4500,
       })
 }
 
@@ -32,5 +40,6 @@ function sendConfirmAlert(title, buttonText ) {
 export {
     sendErrorAlert,
     sendSuccessAlert,
-    sendConfirmAlert
+    sendConfirmAlert,
+    sendWarningAlert,
 };

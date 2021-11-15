@@ -7,11 +7,11 @@ import {
 import api from '../../../services/api';
 import Menu from '../../shared/HomePageMenu/HomePageMenu';
 import { LoadingItem } from '../../shared/Loadings.js'
-import { sendErrorAlert, sendSuccessAlert } from '../../../utils/SweetAlert.js';
+import { sendErrorAlert } from '../../../utils/SweetAlert.js';
 import UserDataContext from '../../../contexts/userDataContext';
 import CartContext from '../../../contexts/cartContext';
 import BlankSpace from '../../shared/BlankSpace';
-import { updateCart } from '../../../utils/localStorage';
+import { addItemToCart, addItemToCartAndCheckout } from './ItemPageFunctions';
 
 
 export default function ItemPage() {
@@ -57,38 +57,12 @@ export default function ItemPage() {
  
     }, [itemId, navigate]);
 
-    function addItemToCart() {
-        setIsLoading(true)
-        const body = {
-            itemId: itemId,
-            quantity: 1,
-        };
-        
-        if (userData.userId) {
-            body['userId'] = userData.userId;
-        } else {
-            body['visitorToken'] = userData.visitorToken;
-        }
+    function localAddItemToCart() {
+        addItemToCart(setIsLoading, itemId, userData, cart, setCart)
+    }
 
-        api.addItemToCart(body)
-            .then(res => {
-                setIsLoading(false);
-                const newCart = [...cart, res.data] 
-                setCart(newCart);
-                updateCart(newCart)
-                sendSuccessAlert('Adicionado com sucesso! Acesse o carrinho para ver')
-            })
-            .catch(err => {
-                setIsLoading(false);
-                console.log(err.response);
-                if (err.response) {
-                    if (err.response.status === 403) 
-                        sendErrorAlert('Hmm.. algumas pessoas também estão de olho nesse item. Limite dinâmico atingido');
-                    if (err.response.status === 409)
-                        sendErrorAlert('Item já está no carrinho. Acesse-o para alterar quantidades')
-                }
-                
-            });
+    function localAddItemToCartAndCheckout() {
+        addItemToCartAndCheckout(setIsLoading, itemId, userData, cart, setCart, navigate)
     }
     
     return (
@@ -113,12 +87,12 @@ export default function ItemPage() {
                             <p className='price'>R$ {item.price}</p>
                             <p className='qty'>{item.quantity} unidade(s)</p>
                             <div className='buy-button-container'>
-                                <button className={item.quantity ? 'iwant' : 'no-item'} onClick={addItemToCart}>
+                                <button className={item.quantity ? 'iwant' : 'no-item'} onClick={(localAddItemToCartAndCheckout)}>
                                     {item.quantity ? 'Eu quero!' : 'produto vendido'}
                                 </button>
                                 {   
                                     !item.quantity ? '' :
-                                    <button className="add-cart" onClick={addItemToCart}>
+                                    <button className="add-cart" onClick={localAddItemToCart}>
                                         {item.quantity ? 'Adicionar ao carrinho' : 'produto vendido'}
                                     </button>
                                 }
