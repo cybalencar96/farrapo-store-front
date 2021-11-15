@@ -11,6 +11,7 @@ import { sendErrorAlert, sendSuccessAlert } from '../../../utils/SweetAlert.js';
 import UserDataContext from '../../../contexts/userDataContext';
 import CartContext from '../../../contexts/cartContext';
 import BlankSpace from '../../shared/BlankSpace';
+import { updateCart } from '../../../utils/localStorage';
 
 
 export default function ItemPage() {
@@ -74,7 +75,7 @@ export default function ItemPage() {
                 setIsLoading(false);
                 const newCart = [...cart, res.data] 
                 setCart(newCart);
-                localStorage.setItem('farrapo-cart', JSON.stringify(newCart))
+                updateCart(newCart)
                 sendSuccessAlert('Adicionado com sucesso! Acesse o carrinho para ver')
             })
             .catch(err => {

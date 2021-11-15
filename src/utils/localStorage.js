@@ -26,7 +26,12 @@ function getCartData() {
     return []
 }
 
+function updateCart(newCart) {
+    localStorage.setItem('farrapo-cart', JSON.stringify(newCart))
+}
+
 export {
     getUserData,
     getCartData,
+    updateCart,
 }

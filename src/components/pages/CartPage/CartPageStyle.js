@@ -10,13 +10,38 @@ const CartPageContainer = styled.main`
     justify-content: flex-start;
 `;
 
+const CartTopBar = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+`;
+
+const EmptyMyCart = styled.span`
+    font-size: 18px;
+    color: #08B2AE;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+        filter: brightness(1.15);
+    }
+    @media(max-width: 600px) {
+        font-size: 14px;
+    }
+`;
+
 const CartTitle = styled.span`
     font-size: 60px;
-    width: 100%;
-    display: inline-block;
-    text-align: center;
     color: #08B2AE;
-    margin-bottom: 20px;
+
+    @media(max-width: 950px) {
+        font-size: 40px;
+    }
+
+    @media(max-width: 600px) {
+        font-size: 24px;
+    }
 `
 const ItemBox = styled.div`
     width: 100%;
@@ -38,6 +63,7 @@ const ItemBox = styled.div`
         }
     }
     @media(max-width: 950px) {
+        padding: 0px;
         & img {
             height: 120px;
             width: 120px;
@@ -45,6 +71,7 @@ const ItemBox = styled.div`
         }
     }
     @media(max-width: 600px) {
+        padding: 0px 10px;
         & img {
             height: 100px;
             width: 100px;
@@ -54,13 +81,23 @@ const ItemBox = styled.div`
 `;
 
 const CartItemDescription = styled.div`
-    width: 100%;
+    width: calc(100% - 190px - 200px);
     height: 100%;
     padding: 16px 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+
+    @media(max-width: 950px) {
+        width: calc(100% - 120px - 150px);
+        font-size: 26px;
+    }
+
+    @media(max-width: 600px) {
+        width: calc(100% - 100px - 100px);
+        font-size: 26px;
+    }
 `;
 
 const ItemName = styled.span`
@@ -71,9 +108,17 @@ const ItemName = styled.span`
     &:hover {
         filter: brightness(1.15);
     }
+    @media(max-width: 950px) {
+        font-size: 20px;
+    }
+
+    @media(max-width: 600px) {
+        font-size: 16px;
+    }
 `;
 
 const CartPrice = styled.div`
+    width: 200px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -81,6 +126,16 @@ const CartPrice = styled.div`
     font-size: 32px;
     color: #08B2AE;
     white-space: nowrap;
+
+    @media(max-width: 950px) {
+        width: 150px;
+        font-size: 26px;
+    }
+
+    @media(max-width: 600px) {
+        width: 100px;
+        font-size: 20px;
+    }
 `;
 
 const DeleteButton = styled.button`
@@ -94,6 +149,14 @@ const DeleteButton = styled.button`
     &:hover {
         filter: brightness(1.15);
     }
+
+    @media(max-width: 950px) {
+        padding-left: 40px;
+    }
+
+    @media(max-width: 600px) {
+        padding-left: 40px;
+    }
 `;
 
 const ItemQuantityBox = styled.div`
@@ -105,6 +168,13 @@ const ItemQuantityBox = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media(max-width: 600px) {
+        width: 80px;
+        height: 20px;
+        margin: 50px 0px 10px;
+        border-radius: 10px;
+    }
 `;
 
 const QuantityButton = styled.button`
@@ -118,12 +188,25 @@ const QuantityButton = styled.button`
     &:first-of-type {
         border-radius: 10px 0px 0px 10px;
     }
+
+    @media(max-width: 600px) {
+        width: 20px;
+        border-radius: 0px 5px 5px 0px;
+        &:first-of-type {
+            border-radius: 5px 0px 0px 5px;
+        }
+    }
 `;
 
 const MaxQuantityDescription = styled.span`
     color: #ABABAB;
     font-size: 16px;
     margin-bottom: 24px;
+
+    @media(max-width: 600px) {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
 `;
 
 const TotalPrice = styled.div`
@@ -135,6 +218,10 @@ const TotalPrice = styled.div`
     color: #08B2AE;
     white-space: nowrap;
     margin-bottom: 20px;
+
+    @media(max-width: 600px) {
+        font-size: 24px;
+    }
 `;
 
 const CheckOutButton = styled.button`
@@ -154,9 +241,28 @@ const CheckOutButton = styled.button`
     }
 `;
 
+const EmptyCartMessage = styled.span`
+    width: 100%;
+    margin-top: 40px;
+    color: #08B2AE;
+    font-size: 36px;
+    text-align: center;
+    line-height: 60px;
+
+    @media(max-width: 950px) {
+        font-size: 28px;
+    }
+
+    @media(max-width: 600px) {
+        font-size: 24px;
+    }
+`;
+
 export {
     CartPageContainer,
+    CartTopBar,
     CartTitle,
+    EmptyMyCart,
     ItemBox,
     CartItemDescription,
     ItemName,
@@ -167,4 +273,5 @@ export {
     TotalPrice,
     CheckOutButton,
     QuantityButton,
+    EmptyCartMessage,
 }
