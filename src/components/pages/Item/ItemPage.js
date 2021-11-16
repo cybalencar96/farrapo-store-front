@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {v4 as uuid} from 'uuid'
 import {
     ItemPageContainer,
     ItemContainer,
@@ -11,12 +10,15 @@ import { LoadingItem } from '../../shared/Loadings.js'
 import { sendErrorAlert, sendSuccessAlert } from '../../../utils/SweetAlert.js';
 import UserDataContext from '../../../contexts/userDataContext';
 import CartContext from '../../../contexts/cartContext';
+import BlankSpace from '../../shared/BlankSpace';
+import { updateCart } from '../../../utils/localStorage';
 
 
 export default function ItemPage() {
     const [menu1, setMenu1] = useState('');
     const [menu2, setMenu2] = useState('');
     const [item, setItem] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const { cart, setCart } = useContext(CartContext);
     const locationArr = useLocation().pathname.split('/');
     const itemId = locationArr[locationArr.length - 1]
@@ -56,6 +58,7 @@ export default function ItemPage() {
     }, [itemId, navigate]);
 
     function addItemToCart() {
+        setIsLoading(true)
         const body = {
             itemId: itemId,
             quantity: 1,
@@ -69,12 +72,14 @@ export default function ItemPage() {
 
         api.addItemToCart(body)
             .then(res => {
+                setIsLoading(false);
                 const newCart = [...cart, res.data] 
                 setCart(newCart);
-                localStorage.setItem('farrapo-cart', JSON.stringify(newCart))
+                updateCart(newCart)
                 sendSuccessAlert('Adicionado com sucesso! Acesse o carrinho para ver')
             })
             .catch(err => {
+                setIsLoading(false);
                 console.log(err.response);
                 if (err.response) {
                     if (err.response.status === 403) 
@@ -87,67 +92,70 @@ export default function ItemPage() {
     }
     
     return (
-        <ItemPageContainer>
-            {
-                !item ? <LoadingItem /> : 
-                <ItemContainer>
-                    <div className='left-side'>
-                        <img src={item.image} alt={item.name}/>
-                    </div>
+        <>
+            <BlankSpace isShown={isLoading} isTransparent={true} isLoading={true}/>
+            <ItemPageContainer>
+                {
+                    !item ? <LoadingItem /> : 
+                    <ItemContainer>
+                        <div className='left-side'>
+                            <img src={item.image} alt={item.name}/>
+                        </div>
 
-                    <div className='right-side'>
-                        <div>
-                            {
-                                item.categories.map(categorie =>  <span className='categories'>{categorie} / </span>)
-                            }
-                           <span className='categories'>{item.color} / </span>
-                        </div>
-                        <h2 className='item-name'>{item.name}</h2>
-                        <p className='price'>R$ {item.price}</p>
-                        <p className='qty'>{item.quantity} unidade(s)</p>
-                        <div className='buy-button-container'>
-                            <button className={item.quantity ? 'iwant' : 'no-item'} onClick={addItemToCart}>
-                                {item.quantity ? 'Eu quero!' : 'produto vendido'}
-                            </button>
-                            {   
-                                !item.quantity ? '' :
-                                <button className="add-cart" onClick={addItemToCart}>
-                                    {item.quantity ? 'Adicionar ao carrinho' : 'produto vendido'}
+                        <div className='right-side'>
+                            <div>
+                                {
+                                    item.categories.map(categorie =>  <span className='categories'>{categorie} / </span>)
+                                }
+                            <span className='categories'>{item.color} / </span>
+                            </div>
+                            <h2 className='item-name'>{item.name}</h2>
+                            <p className='price'>R$ {item.price}</p>
+                            <p className='qty'>{item.quantity} unidade(s)</p>
+                            <div className='buy-button-container'>
+                                <button className={item.quantity ? 'iwant' : 'no-item'} onClick={addItemToCart}>
+                                    {item.quantity ? 'Eu quero!' : 'produto vendido'}
                                 </button>
-                            }
+                                {   
+                                    !item.quantity ? '' :
+                                    <button className="add-cart" onClick={addItemToCart}>
+                                        {item.quantity ? 'Adicionar ao carrinho' : 'produto vendido'}
+                                    </button>
+                                }
+                            </div>
+                            <div className='size-container'>
+                                tamanho
+                                <p className='size'>{item.size}</p>
+                            </div>
+                            <p className='description'>
+                                <span>Descrição</span>
+                                {item.description}
+                            </p>
                         </div>
-                        <div className='size-container'>
-                            tamanho
-                            <p className='size'>{item.size}</p>
-                        </div>
-                        <p className='description'>
-                            <span>Descrição</span>
-                            {item.description}
-                        </p>
-                    </div>
-                </ItemContainer>
-            }
+                    </ItemContainer>
+                }
             
 
-            {
-                !item || !menu1 ? <LoadingItem /> :
-                <Menu
-                    title={`Que tal um pouco mais de ${item.color}`}
-                    forwardMessage="Me mostre mais!"
-                    type="colors"
-                    itens = {menu1}
-                />
-            }
-            {
-                !item || !menu2 ? <LoadingItem /> :
-                <Menu
-                    title={`${item.categories[0]} que você também pode gostar`}
-                    forwardMessage="Me mostre mais!"
-                    type="categories"
-                    itens = {menu2}
-                />
-            }
+                {
+                    !item || !menu1 ? <LoadingItem /> :
+                    <Menu
+                        title={`Que tal um pouco mais de ${item.color}`}
+                        forwardMessage="Me mostre mais!"
+                        type="colors"
+                        itens = {menu1}
+                    />
+                }
+                {
+                    !item || !menu2 ? <LoadingItem /> :
+                    <Menu
+                        title={`${item.categories[0]} que você também pode gostar`}
+                        forwardMessage="Me mostre mais!"
+                        type="categories"
+                        itens = {menu2}
+                    />
+                }
                 
-        </ItemPageContainer>
+            </ItemPageContainer>
+        </>
     )
 }

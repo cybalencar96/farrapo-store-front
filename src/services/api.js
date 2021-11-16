@@ -79,12 +79,18 @@ function getPurchaseHistory(token) {
     return axios.get('/purchase-history', createConfig(token));
 }
 
-function deleteClientCart ({ userId, visitorToken }) {
-    const clientId = userId ? userId : visitorToken;
-    const clientQuery = userId ? 'userId' : 'visitorToken';
-
-    return axios.delete(`/cart?${clientQuery}=${clientId}`);
+function deleteClientCart ({ clientType, token }) {
+    return axios.delete(`/cart/all/${clientType}&${token}`);
 }
+
+function deleteItemFromClientCart ({ clientType, token, itemId }) {
+    return axios.delete(`/cart/item/${clientType}&${token}&${itemId}`);
+}
+
+function updateItemQuantityFromClientCart ({ clientType, token, itemId, quantity }) {
+    return axios.put(`/cart/`, {clientType, token, itemId, quantity});
+}
+
 const api = {
     signup,
     signin,
@@ -99,6 +105,8 @@ const api = {
     getSession,
     getPurchaseHistory,
     deleteClientCart,
+    deleteItemFromClientCart,
+    updateItemQuantityFromClientCart,
 }
 
 export default api;

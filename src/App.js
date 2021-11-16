@@ -20,6 +20,7 @@ import { sendErrorAlert } from "./utils/SweetAlert";
 import CartContext from './contexts/cartContext.js'
 import HistoryPage from "./components/pages/History/HistoryPage";
 import { getUserData, getCartData } from "./utils/localStorage.js";
+import CartPage from "./components/pages/CartPage/CartPage";
 
 export default function App() {
   const [userData, setUserData] = useState(() => getUserData());
@@ -47,6 +48,7 @@ export default function App() {
               <Route path="/search/:itemName&:categories&:colors&:sizes&:price&:orderBy" element={<SearchItems />} />
               <Route path="/items/:id" element={<ItemPage />} />
               <Route path="/my-purchases" element={<HistoryPage />} />
+              <Route path="/my-cart" element={<CartPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </CartContext.Provider>

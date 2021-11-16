@@ -18,7 +18,7 @@ function sendSuccessAlert(html) {
       })
 }
 
-function sendConfirmAlert(title, buttonText, confirmFunction ) {
+function sendConfirmAlert(title, buttonText ) {
     return Swal.fire({
         title: title,
         showCancelButton: true,

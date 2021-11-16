@@ -46,6 +46,7 @@ export default function TopBar() {
     ]
     
     const profileMenuOptions = [
+        { title: "Meu carrinho", onClick: () =>closeMenusAndNavigate(() => navigate('/my-cart')) },
         { title: "Minhas compras", onClick: () =>closeMenusAndNavigate(() => navigate('/my-purchases')) },
         { title: "Sair", onClick: () => {userLogOut(userData.token, setIsLoading, setUserData, setCart, setIsMenuOpen, navigate)}},
     ]
@@ -115,7 +116,7 @@ export default function TopBar() {
                         </SearchBar>
                     </form>
                     <Buttons>
-                        <CartButton>
+                        <CartButton onClick={() => navigate("/my-cart")}>
                             <FiShoppingCart />
                             {
                                 !cart.length ? '' :
