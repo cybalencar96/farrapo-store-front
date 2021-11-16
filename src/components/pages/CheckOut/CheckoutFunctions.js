@@ -20,7 +20,7 @@ function areAllInputsValid(inputValues) {
         { message: "Insira um CPF válido!", condition: String(inputValues["cpf"]).length === 11 },
         { message: "Insira um endereço válido!", condition: (inputValues["adress"]).length > 3 },
         { message: "Insira uma cidade válida!", condition: (inputValues["city"]).length > 3 },
-        { message: "Insira um estado válido!", condition: validUFs.includes(inputValues["state"]) }
+        { message: "Insira um estado válido!", condition: validUFs.includes(inputValues["state"].toUpperCase()) }
     ]
 
     const error = conditions.find(({ condition }) => condition === false);

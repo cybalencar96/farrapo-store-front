@@ -1,6 +1,6 @@
 import { changeInputValue, forwardUserToLogin, submitCheckout } from "./CheckoutFunctions";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CheckoutContainer, CheckoutForm, CheckoutTitle, CheckoutTopBar, FinishPurchaseButton, FormTitle, GoBackToMyCart, Input, Inputs, Label, TotalPrice } from "./CheckoutStyle";
 import UserDataContext from "../../../contexts/userDataContext";
 import CartContext from "../../../contexts/cartContext";
@@ -18,6 +18,10 @@ export default function Checkout() {
     const [inputValues, setInputValues] = useState({ name: "", cpf: "", adress: "", number: "", complement: "", city: "", state: "" });
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        window.scroll(0, 0);
+    },[])
+    
     const inputs = [
         { label: "Nome*", type: "text", atribute: "name", size: "large" },
         { label: "CPF*", type: "number", atribute: "cpf", size: "large" },
