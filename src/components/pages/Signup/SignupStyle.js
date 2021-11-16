@@ -78,11 +78,14 @@ const SignUpForm = styled.form`
         border: none;
         margin-top: 50px;
         background-color: #38C2BF;
-
+        cursor: pointer;
         font-family: 'Cinzel', serif;
         font-size: 20px;
         font-weight: bold;
         color: white;
+        &:hover {
+            filter: brightness(1.10);
+        }
     }
 
     @media (max-width: 750px) {

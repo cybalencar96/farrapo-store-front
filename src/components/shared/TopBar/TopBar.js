@@ -41,6 +41,7 @@ export default function TopBar() {
     const { cart, setCart } = useContext(CartContext);
 
     const visitorsMobileOptions = [
+        { title: "Meu carrinho", onClick: () =>closeMenusAndNavigate(() => navigate('/my-cart')) },
         {title: "Entre", onClick: () =>closeMenusAndNavigate( () => navigate("/signin"))},
         {title: "Cadastre-se", onClick: () =>closeMenusAndNavigate( () => navigate("/signup"))}
     ]

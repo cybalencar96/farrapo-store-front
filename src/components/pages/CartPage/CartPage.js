@@ -1,9 +1,9 @@
-import { CartItemDescription, CartPageContainer, CartTitle, DeleteButton, ItemBox, ItemName, CartPrice, ItemQuantityBox, MaxQuantityDescription, TotalPrice, CheckOutButton, QuantityButton, EmptyCartMessage, CartTopBar, EmptyMyCart } from "./CartPageStyle";
+import { CartPageContainer, CartTitle, TotalPrice, CheckOutButton, EmptyCartMessage, CartTopBar, EmptyMyCart } from "./CartPageStyle";
 import CartContext from "../../../contexts/cartContext";
 import { useContext, useState } from "react";
-import { numberToCurrency } from "../../../utils/stringsUtils";
+import ItemBox from "../../shared/ItemBox/ItemBox";
 import { useNavigate } from "react-router";
-import { deleteItemFromCart, getTotalPrice, updateItemQuantity, EmptyCart } from "./CartPageFunctions";
+import { getTotalPrice, EmptyCart, checkLoginAndForwardToCheckout } from "./CartPageFunctions";
 import BlankSpace from "../../shared/BlankSpace";
 import UserDataContext from "../../../contexts/userDataContext";
 
@@ -27,47 +27,19 @@ export default function CartPage() {
                         </EmptyMyCart>
                     </CartTopBar>
                     {
-                        cart.map(({itemId, itemName, imageUrl, cartQty, maxQty, price, userId, visitorId }, index) => (
-                            <ItemBox key={"CartItem"+index} >
-                                <img alt={itemName} src={imageUrl} onClick = {() => navigate(`/items/${itemId}`)} />
-                                <CartItemDescription>
-                                    <ItemName onClick = {() => navigate(`/items/${itemId}`)}>
-                                        {itemName}
-                                    </ItemName>
-                                    <ItemQuantityBox>
-                                        <QuantityButton
-                                            isNotAllowed={cartQty === 1}
-                                            onClick={() => updateItemQuantity({ userData, setIsLoading, itemId, quantity: cartQty - 1, maxQty, cart, setCart })}
-                                            disabled = {isLoading}
-                                        > 
-                                            -
-                                        </QuantityButton>
-                                        <span>{cartQty}</span>
-                                        <QuantityButton
-                                            isNotAllowed={cartQty === maxQty}
-                                            onClick={() => updateItemQuantity({ userData, setIsLoading, itemId, quantity: cartQty + 1, maxQty, cart, setCart })}
-                                            disabled = {isLoading}
-                                        >
-                                            +
-                                        </QuantityButton>
-                                    </ItemQuantityBox>
-                                    <MaxQuantityDescription>
-                                        ( Disponível: {maxQty} )
-                                    </MaxQuantityDescription>
-                                    <DeleteButton onClick={() => deleteItemFromCart({ userData, itemId, setIsLoading, cart, setCart })}>
-                                        Excluir
-                                    </DeleteButton>
-                                </CartItemDescription>
-                                <CartPrice>
-                                    {numberToCurrency(price*cartQty)}
-                                </CartPrice>
-                            </ItemBox>
-                        ) )
+                        cart.map(( item, index) => (
+                            <ItemBox
+                                key={`CartItemBox` + index}
+                                item = {item}
+                                isLoading = {isLoading}
+                                setIsLoading = {setIsLoading}
+                            />
+                        ))
                     }
                     <TotalPrice>
                         Total: {getTotalPrice(cart)}
                     </TotalPrice>
-                    <CheckOutButton>
+                    <CheckOutButton onClick = {() => checkLoginAndForwardToCheckout(userData, navigate)}>
                         Seguir para Checkout
                     </CheckOutButton>
                 </CartPageContainer>

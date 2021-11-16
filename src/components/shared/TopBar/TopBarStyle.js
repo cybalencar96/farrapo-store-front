@@ -30,7 +30,7 @@ const MainBar = styled.div`
 `;
 
 const Title = styled.span`
-    width: 400px;
+    width: min(400px, 100%);
     font-family: 'Cinzel', serif;
     font-size: 45px;
     font-weight: 600;
@@ -42,10 +42,12 @@ const Title = styled.span`
     left: calc( (100vw - 400px) / 2 );
 
     @media(max-width: 950px) {
-    font-size: 35px;
-    top: calc(( 45px - 35px) / 2 );
-    left: calc( (100vw - 400px) / 2 );
-
+        font-size: 35px;
+        top: calc(( 45px - 35px) / 2 );
+        left: calc( (100vw - min(400px, 100%)) / 2 );
+    }
+    @media(max-width: 300px) {
+        font-size: 25px;
     }   
 `;
 
@@ -55,6 +57,7 @@ const MenuButton = styled.span`
     cursor: pointer;
     color: #FFFFFF;
     margin-top: 10px;
+    margin-right: 10px;
 
     @media(max-width: 950px) {
     display: block;
@@ -62,7 +65,7 @@ const MenuButton = styled.span`
 `;
 
 const SearchBar = styled.div`
-    width: 250px;
+    width: min(250px, 100%);
     height: 40px;
     border: 1px solid rgba(0,0,0,0.2);
     background-color: rgba(255,255,255,0.6);
@@ -98,7 +101,7 @@ const Buttons = styled.div`
     width: 250px;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 
     @media(max-width: 600px) {
@@ -110,6 +113,7 @@ const CartButton = styled.button`
     width: 50px;
     height: 70px;
     display: flex;
+    margin-right: 25px;
     align-items: center;
     justify-content: right;
     font-size: 40px;
@@ -137,7 +141,6 @@ const CartNumber = styled.div`
 `;
 
 const ProfileButton = styled.div`
-    width: 180px;
     height: 100%;
     display: flex;
     align-items: center;
