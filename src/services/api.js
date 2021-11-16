@@ -91,6 +91,14 @@ function updateItemQuantityFromClientCart ({ clientType, token, itemId, quantity
     return axios.put(`/cart/`, {clientType, token, itemId, quantity});
 }
 
+function usersCheckout (userData, cart, token) {
+    return axios.post(`/checkout/`, {userData, cart}, createConfig(token));
+}
+
+function getPurchaseByPurchaseToken(token) {
+    return axios.get('/purchase-history/token', createConfig(token));
+}
+
 const api = {
     signup,
     signin,
@@ -107,6 +115,8 @@ const api = {
     deleteClientCart,
     deleteItemFromClientCart,
     updateItemQuantityFromClientCart,
+    usersCheckout,
+    getPurchaseByPurchaseToken,
 }
 
 export default api;
