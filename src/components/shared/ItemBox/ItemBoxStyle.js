@@ -35,6 +35,15 @@ const ItemBoxContainer = styled.div`
             margin-right: 8px;
         }
     }
+    @media(max-width: 400px) {
+        padding: 0px 10px;
+        justify-content: space-between;
+        & img {
+            height: 80px;
+            width: 80px;
+            margin-right: 8px;
+        }
+    }
 `;
 
 const CartItemDescription = styled.div`
@@ -52,7 +61,7 @@ const CartItemDescription = styled.div`
     }
 
     @media(max-width: 600px) {
-        width: calc(100% - 100px - 100px);
+        width: calc(70% - 90px);
         font-size: 26px;
     }
 `;
@@ -90,8 +99,13 @@ const CartPrice = styled.div`
     }
 
     @media(max-width: 600px) {
-        width: 100px;
+        width: 30%;
         font-size: 20px;
+    }
+
+    @media(max-width: 400px) {
+        width: 30%;
+        font-size: 16px;
     }
 `;
 
@@ -114,6 +128,10 @@ const DeleteButton = styled.button`
     @media(max-width: 600px) {
         padding-left: 40px;
     }
+
+    @media(max-width: 300px) {
+        padding-left: 0px;
+    }
 `;
 
 const ItemQuantityBox = styled.div`
@@ -128,6 +146,12 @@ const ItemQuantityBox = styled.div`
 
     @media(max-width: 600px) {
         width: 80px;
+        height: 20px;
+        margin: 50px 0px 10px;
+        border-radius: 10px;
+    }
+    @media(max-width: 300px) {
+        width: 60px;
         height: 20px;
         margin: 50px 0px 10px;
         border-radius: 10px;
@@ -153,6 +177,9 @@ const QuantityButton = styled.button`
             border-radius: 5px 0px 0px 5px;
         }
     }
+    @media(max-width: 300px) {
+        width:15px;
+    }
 `;
 
 const MaxQuantityDescription = styled.span`
@@ -163,6 +190,11 @@ const MaxQuantityDescription = styled.span`
     @media(max-width: 600px) {
         font-size: 14px;
         margin-bottom: 16px;
+    }
+
+    @media(max-width: 300px) {
+        font-size: 12px;
+        margin-bottom: 10px;
     }
 `;
 

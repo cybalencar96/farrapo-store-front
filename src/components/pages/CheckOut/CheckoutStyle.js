@@ -8,6 +8,9 @@ const CheckoutContainer = styled.main`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    @media(max-width: 600px) {
+        padding: 120px 20px 40px;
+    }
 `;
 
 const CheckoutTopBar = styled.div`
@@ -46,17 +49,11 @@ const GoBackToMyCart = styled.span`
 `;
 
 const CheckoutForm = styled.form`
-
-`;
-
-const Inputs = styled.div`
-    & div {
-        height: 30px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        position: relative;
-    }
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 const FormTitle = styled.span`
@@ -66,29 +63,44 @@ const FormTitle = styled.span`
     margin-bottom: 16px;
 `;
 
-const Input = styled.input`
-    width: ${ ({ size }) => size === "large" ? "200px" : "70px" };
-    padding-left: 10px;
-    height: 30px;
-    position: absolute;
-    border: 1px solid #08B2AE;
-    border-radius: 10px;
-    outline: none;
-    top: 0px;
-    left: 150px;
-    @media(max-width: 600px) {
-        width: ${ ({ size }) => size === "large" ? "170px" : "70px" };
-        left: 120px;
+const Inputs = styled.div`
+    display: grid;
+    grid-template-columns: (30%,70%);
+    gap: 10px;
+    grid-auto-rows: 35px;
+    margin-bottom: 20px;
+    @media(max-width: 400px) {
+        width: 100%;
     }
 `;
 
-const Label = styled.span`
+const Input = styled.input`
+    width: ${ ({ size }) => size === "large" ? "100%" : "40%" };
+    grid-column: 2;
+    grid-row: ${ ({row}) => row};
+    padding-left: 10px;
+    height: 30px;
+    border: 1px solid #08B2AE;
+    border-radius: 10px;
+    outline: none;
+    @media(max-width: 400px) {
+        width: ${ ({ size }) => size === "large" ? "100%" : "40%" };
+    }
+`;
+
+const Label = styled.div`
+    grid-column: 1;
+    grid-row: ${ ({row}) => row};
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     font-size: 20px;
     color: #08B2AE;
     margin-right: 10px;
+    text-align: right;
 
-    @media(max-width: 600px) {
-        font-size: 18px;
+    @media(max-width: 400px) {
+        font-size: 13px;
     }
 
 `;

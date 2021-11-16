@@ -3,7 +3,7 @@ import CartContext from "../../../contexts/cartContext";
 import { useContext, useState } from "react";
 import ItemBox from "../../shared/ItemBox/ItemBox";
 import { useNavigate } from "react-router";
-import { getTotalPrice, EmptyCart } from "./CartPageFunctions";
+import { getTotalPrice, EmptyCart, checkLoginAndForwardToCheckout } from "./CartPageFunctions";
 import BlankSpace from "../../shared/BlankSpace";
 import UserDataContext from "../../../contexts/userDataContext";
 
@@ -39,7 +39,7 @@ export default function CartPage() {
                     <TotalPrice>
                         Total: {getTotalPrice(cart)}
                     </TotalPrice>
-                    <CheckOutButton onClick = {() => navigate("/checkout")}>
+                    <CheckOutButton onClick = {() => checkLoginAndForwardToCheckout(userData, navigate)}>
                         Seguir para Checkout
                     </CheckOutButton>
                 </CartPageContainer>

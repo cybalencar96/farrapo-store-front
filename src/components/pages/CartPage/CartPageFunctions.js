@@ -1,5 +1,5 @@
 import { numberToCurrency } from "../../../utils/stringsUtils";
-import { sendErrorAlert, sendConfirmAlert} from "../../../utils/SweetAlert.js";
+import { sendErrorAlert, sendConfirmAlert, sendWarningAlert} from "../../../utils/SweetAlert.js";
 import { updateCart } from "../../../utils/localStorage";
 import api from "../../../services/api";
 
@@ -38,7 +38,20 @@ async function EmptyCart({ userData, setIsLoading, setCart }) {
         })
 }
 
+async function forwardUserToLogin(navigate) {
+    await sendWarningAlert("Faça login antes de seguir para Checkout!");
+    navigate("/signin");
+}
+
+function checkLoginAndForwardToCheckout(userData, navigate) {
+    if (!userData.token) {
+        return forwardUserToLogin(navigate);
+    }
+    return navigate("/checkout");
+}
+
 export {
     getTotalPrice,
     EmptyCart,
+    checkLoginAndForwardToCheckout
 }

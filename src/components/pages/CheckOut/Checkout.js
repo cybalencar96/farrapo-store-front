@@ -1,4 +1,4 @@
-import { changeInputValue, forwardUserToLogin, submitCheckout } from "./CheckoutFunctions";
+import { changeInputValue, submitCheckout } from "./CheckoutFunctions";
 
 import { useContext, useEffect, useState } from "react";
 import { CheckoutContainer, CheckoutForm, CheckoutTitle, CheckoutTopBar, FinishPurchaseButton, FormTitle, GoBackToMyCart, Input, Inputs, Label, TotalPrice } from "./CheckoutStyle";
@@ -41,10 +41,6 @@ export default function Checkout() {
         );
     }
 
-    if (!userData.token) {
-        forwardUserToLogin(navigate)
-    }
-
     return (
         <>
             <BlankSpace isShown={isLoading} isLoading={true} isTransparent={true} />
@@ -76,17 +72,18 @@ export default function Checkout() {
                     <Inputs>
                         {
                             inputs.map(({ label, type, atribute, size }, index) => (
-                                <div key = {"CheckoutForm" + index}>
-                                    <Label>
+                                <>
+                                    <Label row={index + 1}>
                                         {label}:
                                     </Label>
                                     <Input
+                                        row={index + 1}
                                         type={type}
                                         size={size}
                                         value={inputValues[atribute]}
                                         onChange={(e) => changeInputValue(e, inputValues, setInputValues, atribute) }
                                     />
-                                </div> 
+                                </> 
                             ))
                         }
                     </Inputs>

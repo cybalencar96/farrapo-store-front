@@ -37,7 +37,7 @@ export default function ItemBox({ item, isLoading, setIsLoading, isCheckout }) {
                             Tamanho: {size}
                         </CheckoutDescription>
                         <CheckoutDescription>
-                            Preço Unitário: {numberToCurrency(price)}
+                            Unidade: {numberToCurrency(price)}
                         </CheckoutDescription>
                     </>
                     :
