@@ -1,4 +1,5 @@
 import {v4 as uuid} from 'uuid'
+import api from '../services/api';
 
 function getUserData() {
     const localUserData = localStorage.getItem('farrapo');
@@ -6,13 +7,15 @@ function getUserData() {
         return JSON.parse(localUserData)
     } else {
         const visitorToken = uuid();
-        localStorage.setItem('farrapo',JSON.stringify({
-          userId: "", name: "", email: "", image: "", token: "", visitorToken
-        }));
+        api.registerVisitor(visitorToken);
 
+        localStorage.setItem('farrapo',JSON.stringify({
+            userId: "", name: "", email: "", image: "", token: "", visitorToken
+          }));
+  
         return {
-          userId: "", name: "", email: "", image: "", token: "", visitorToken
-        }
+        userId: "", name: "", email: "", image: "", token: "", visitorToken
+        }       
     }
 }
 

@@ -40,11 +40,22 @@ function signin(e, inputs, navigate, setButtonLoading, setUserData, userData) {
             cart: userData.cart
         }
 
-        setUserData(userLogged);
-        localStorage.setItem('farrapo', JSON.stringify(userLogged));
+        api.transferCartFromVistantToUser({
+            userId: userLogged.userId,
+            visitorToken: userData.visitorToken
+        })
+        .then(resp => {
+            setUserData(userLogged);
+            localStorage.setItem('farrapo', JSON.stringify(userLogged));
+    
+            sendSuccessAlert();
+            navigate('/');
+        })
+        .catch(error => {
+            console.log(error.response)
+        });
 
-        sendSuccessAlert();
-        navigate('/');
+        
     })
     .catch(err => {
         setButtonLoading(false)
