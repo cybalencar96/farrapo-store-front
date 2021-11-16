@@ -64,7 +64,6 @@ function signin(e, inputs, navigate, setButtonLoading, setUserData, userData) {
     });
 }
 
-
 export {
     changeInputs,
     signin
