@@ -91,6 +91,14 @@ function updateItemQuantityFromClientCart ({ clientType, token, itemId, quantity
     return axios.put(`/cart/`, {clientType, token, itemId, quantity});
 }
 
+function transferCartFromVistantToUser({userId, visitorToken}) {
+    return axios.put(`/cart/transfer`, { userId, visitorToken });
+}
+
+function registerVisitor(visitorToken) {
+    return axios.post('/visitor', {visitorToken});
+}
+
 const api = {
     signup,
     signin,
@@ -107,6 +115,8 @@ const api = {
     deleteClientCart,
     deleteItemFromClientCart,
     updateItemQuantityFromClientCart,
+    transferCartFromVistantToUser,
+    registerVisitor,
 }
 
 export default api;
