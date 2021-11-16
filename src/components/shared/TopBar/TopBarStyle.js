@@ -141,7 +141,6 @@ const CartNumber = styled.div`
 `;
 
 const ProfileButton = styled.div`
-    //width: 180px;
     height: 100%;
     display: flex;
     align-items: center;
