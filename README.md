@@ -9,7 +9,7 @@
   <p align="center">
     The best place to get rid of old (<strong>but gold</strong>) stuff
     <br />
-    <a href="https://github.com/cybalencar96/farrapo-store-back"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/cybalencar96/farrapo-store-front"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://farrapo-store-front-git-main-cybalencar96.vercel.app/">View Demo</a>
     <br />
